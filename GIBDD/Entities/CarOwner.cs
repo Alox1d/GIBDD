@@ -10,11 +10,11 @@ namespace GIBDD.Entities
     {
         public int Id { get; set; }
         public string FIO { get; set; }
-        public int PassportData { get; set; }
-        public ICollection<DriverLicense> DriverLicenses { get; set; }
-        public ICollection<Vehicle> Vehicles { get; set; }
+        public long PassportData { get; set; }
+        public virtual ICollection<DriverLicense> DriverLicenses { get; set; }
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
 
-        public ICollection<VehicleOffense>? VehicleOffenses { get; set; }
+        public virtual ICollection<VehicleOffense>? VehicleOffenses { get; set; }
 
     }
 }

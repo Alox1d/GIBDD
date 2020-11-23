@@ -9,12 +9,12 @@ namespace GIBDD.Entities
     public class ArticleOffense
     {
         public int Id { get; set; }
-        public int Number { get; set; }
+        public double Number { get; set; }
         public string Description { get; set; }
-        public double? Penalty { get; set; } // штраф
-        public int? TakeLicenseTime { get; set; } // в месяцах
+        public string? Penalty { get; set; } // штраф
+        public string? TakeLicenseTime { get; set; } // в месяцах
 
-        public ICollection<VehicleOffense>? VehicleOffenses { get; set; }
+        public virtual ICollection<VehicleOffense>? VehicleOffenses { get; set; }
 
     }
 }

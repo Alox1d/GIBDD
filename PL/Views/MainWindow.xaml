@@ -1,0 +1,132 @@
+﻿<Window x:Class="PL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}" >
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="16"/>
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}" >
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="16"/>
+
+        </Style>
+        <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}" >
+            <Setter Property="Margin" Value="16"/>
+
+        </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}" >
+            <Setter Property="Margin" Value="16"/>
+
+        </Style>
+        <Style TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}" >
+            <Setter Property="Margin" Value="0"/>
+
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}" >
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Margin" Value="16" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid Height="60" VerticalAlignment="Top" Background="MediumBlue">
+            <TextBlock Text="Система ГИБДД" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+                <materialDesign:PackIcon Kind="Power"/>
+            </Button>
+        </Grid>
+        <dragablz:TabablzControl>
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController/>
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem Header="ТС">
+                <Grid  Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="0.5*" />
+                        
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.2*" />
+                    </Grid.RowDefinitions>
+                    <ListBox  Grid.Column="0" ItemsSource="{Binding Vehicles}"
+                 SelectedItem="{Binding SelectedVehicle}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock  FontSize="18" Text="{Binding Path=RegistrationNumber}" />
+                                    <TextBlock Text="{Binding Path=Color.Name}" />
+                                    <TextBlock Text="{Binding Path=Model.Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Добавить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding RemoveCommand}"
+        CommandParameter="{Binding SelectedVehicle}">Удалить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
+        >Применить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
+        >Проверить ТО</Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0">
+                        <StackPanel DataContext="{Binding SelectedVehicle}">
+                            <Label Content="Выбранный элемент"  />
+                            <Label Content="Номер гос. регистрации" />
+                            <TextBox Text="{Binding RegistrationNumber, UpdateSourceTrigger=PropertyChanged}" />
+                            <!--<Label Content="Цвет" />
+                            <TextBox Text="{Binding Color.Name, UpdateSourceTrigger=PropertyChanged}" />-->
+                            <!--<Label Content="Модель" />
+                            <TextBox Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged}" />-->
+
+                            <Label Content="Дата ТО" />
+                            <DatePicker Name="dp1" SelectedDate="{Binding MaintenanceDate, UpdateSourceTrigger=PropertyChanged}" />
+                            <StackPanel Orientation="Horizontal" >
+                                <Label Content="Неактуальность ТО"  />
+                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding MaintenanceSuccess, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <Label Content="Модель" />
+                        <ComboBox 
+              ItemsSource="{Binding Vehicles, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="Model.Name"
+              SelectedValue="{Binding SelectedVehicle.Model.Id, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="Model.Id" 
+                            SelectedItem="{Binding SelectedModel}"
+                            />
+                        <!--ItemsSource="{Binding Models,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedVehicle.Model.Id, Mode=TwoWay}" SelectedValuePath="Id"
+                            />-->
+                        <Label Content="Цвет" />
+                        
+                        <ComboBox 
+              ItemsSource="{Binding Vehicles, UpdateSourceTrigger=LostFocus}"
+              DisplayMemberPath="Color.Name"
+              SelectedValue="{Binding SelectedVehicle.Color.Id, UpdateSourceTrigger=LostFocus}"
+              SelectedValuePath="Color.Id" 
+            />
+                    </StackPanel>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Правонарушения">
+                <TextBlock Text="Amazing designs!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+            <TabItem Header="Автовладельцы">
+                <TextBlock Text="Ask for any question!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+            <TabItem Header="Водительские права">
+                <TextBlock Text="Ask for any question!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+
+        </dragablz:TabablzControl>
+    </Grid>
+</Window>

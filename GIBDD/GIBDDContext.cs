@@ -11,7 +11,7 @@ namespace GIBDD
     public class GIBDDContext : DbContext
     {
         public GIBDDContext()
-    : base()
+    : base("GIBDDContext")
         { }
 
         public DbSet<ArticleOffense> ArticleOffenses { get; set; }

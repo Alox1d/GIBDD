@@ -1,6 +1,8 @@
 ﻿using GIBDD.Entities;
+using PostSharp.Patterns.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,20 +12,19 @@ namespace GIBDD
     public class Vehicle
     {
         public int Id { get; set; }
+         
         public string RegistrationNumber { get; set; }
-        public int? Mileage { get; set; } // Пробег
-        public Model Model { get; set; } 
+        //public int? Mileage { get; set; } // Пробег
+        public virtual Model Model { get; set; } 
 
-        public Color Color { get; set; }
+        public virtual Color Color { get; set; }
 
         public DateTime? MaintenanceDate { get; set; }
         public bool MaintenanceSuccess { get; set; }
 
-        public CarOwner CarOwner { get; set; }
+        public virtual CarOwner CarOwner { get; set; }
         //public CarDriver CarDriver { get; set; }
-        public DriverLicense DriverLicense { get; set; }
-
-
+        public virtual DriverLicense DriverLicense { get; set; }
 
 
     }

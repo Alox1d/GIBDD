@@ -10,22 +10,23 @@ namespace GIBDD.Entities
     {
         public int Id { get; set; }
         public DateTime ReleaseDate { get; set; }
-        //public ICollection<TakeStroke>? TakeStrokes { get; set; }
+        public bool IsLicenseTaken { get; set; }
+        public virtual ICollection<TakeStroke>? TakeStrokes { get; set; }
         //public ICollection<LicenseCategory> LicenseCategories { get; set; }
-        public ICollection<Category> Categories { get; set; }
-        public CarOwner CarOwner { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual CarOwner CarOwner { get; set; }
 
     }
 
 
-    //public class TakeStroke
-    //{
-    //    public int Id { get; set; }
-    //    public DateTime TakeDate { get; set; }
-    //    public DateTime ReturnDate { get; set; }
-    //    public DriverLicense? DriverLicense { get; set; }
+    public class TakeStroke
+    {
+        public int Id { get; set; }
+        public DateTime TakeDate { get; set; }
+        public DateTime ReturnDate { get; set; }
+        public DriverLicense? DriverLicense { get; set; }
 
-    //}
+    }
     //public class LicenseCategory
     //{
     //    public int Id { get; set; }

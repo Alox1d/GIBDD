@@ -10,12 +10,13 @@ namespace GIBDD.Entities
     {
         public int Id { get; set; }
         public double? Penalty { get; set; }
-        public bool? TakeLicense { get; set; }
+        public string Address { get; set; }
+        //public bool? TakeLicense { get; set; }
         public int? TakeLicenseTime { get; set; } // в месяцах
-        public CarOwner CarOwner { get; set; }
+        public virtual CarOwner CarOwner { get; set; }
         //public CarDriver CarDriver { get; set; }
 
-        public ArticleOffense ArticleOffense { get; set; }
+        public virtual ArticleOffense ArticleOffense { get; set; }
 
 
 
