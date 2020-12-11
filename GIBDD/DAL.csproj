@@ -102,6 +102,14 @@
     <Compile Include="Migrations\202011231528344_license.designer.cs">
       <DependentUpon>202011231528344_license.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011250951568_foreign.cs" />
+    <Compile Include="Migrations\202011250951568_foreign.designer.cs">
+      <DependentUpon>202011250951568_foreign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011250956121_foreign1.cs" />
+    <Compile Include="Migrations\202011250956121_foreign1.designer.cs">
+      <DependentUpon>202011250956121_foreign1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,6 +131,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011231528344_license.resx">
       <DependentUpon>202011231528344_license.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011250951568_foreign.resx">
+      <DependentUpon>202011250951568_foreign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011250956121_foreign1.resx">
+      <DependentUpon>202011250956121_foreign1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

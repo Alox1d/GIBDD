@@ -3,6 +3,7 @@ using PostSharp.Patterns.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace GIBDD
         public virtual Model Model { get; set; } 
 
         public virtual Color Color { get; set; }
+        //[ForeignKey("Color")]
+        //public  int Color_Id { get; set; }
 
         public DateTime? MaintenanceDate { get; set; }
         public bool MaintenanceSuccess { get; set; }

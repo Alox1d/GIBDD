@@ -1,0 +1,12 @@
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\GIBDD.exe.config
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\GIBDD.exe
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\GIBDD.pdb
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\EntityFramework.dll
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\EntityFramework.xml
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\obj\Debug\GIBDD.csprojAssemblyReference.cache
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\obj\Debug\GIBDD.csproj.CoreCompileInputs.cache
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\obj\Debug\GIBDD.csproj.CopyComplete
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\obj\Debug\GIBDD.exe
+C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\Курсовой\GIBDD\GIBDD\obj\Debug\GIBDD.pdb

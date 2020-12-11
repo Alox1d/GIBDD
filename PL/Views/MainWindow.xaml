@@ -12,7 +12,7 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="16"/>
         </Style>
-        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}" >
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}" >
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="16"/>
 
@@ -29,14 +29,16 @@
             <Setter Property="Margin" Value="0"/>
 
         </Style>
-        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}" >
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}" >
             <Setter Property="Width" Value="100" />
             <Setter Property="Margin" Value="16" />
         </Style>
     </Window.Resources>
     <Grid>
         <Grid Height="60" VerticalAlignment="Top" Background="MediumBlue">
-            <TextBlock Text="Система ГИБДД" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
+            <TextBlock 
+                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                Text="Система ГИБДД" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
                 <materialDesign:PackIcon Kind="Power"/>
             </Button>
@@ -81,7 +83,13 @@
                         <StackPanel DataContext="{Binding SelectedVehicle}">
                             <Label Content="Выбранный элемент"  />
                             <Label Content="Номер гос. регистрации" />
-                            <TextBox Text="{Binding RegistrationNumber, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox 
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Stretch"
+                    MinWidth="280"
+                    AcceptsReturn="True"
+                    VerticalScrollBarVisibility="Auto"
+                                Text="{Binding RegistrationNumber, UpdateSourceTrigger=PropertyChanged}" />
                             <!--<Label Content="Цвет" />
                             <TextBox Text="{Binding Color.Name, UpdateSourceTrigger=PropertyChanged}" />-->
                             <!--<Label Content="Модель" />
@@ -96,23 +104,27 @@
 
                         </StackPanel>
                         <Label Content="Модель" />
+
                         <ComboBox 
               ItemsSource="{Binding Vehicles, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Model.Name"
               SelectedValue="{Binding SelectedVehicle.Model.Id, UpdateSourceTrigger=PropertyChanged}"
               SelectedValuePath="Model.Id" 
-                            SelectedItem="{Binding SelectedModel}"
                             />
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddModelCommand}">Добавить</Button>
+
                         <!--ItemsSource="{Binding Models,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedVehicle.Model.Id, Mode=TwoWay}" SelectedValuePath="Id"
                             />-->
                         <Label Content="Цвет" />
                         
                         <ComboBox 
-              ItemsSource="{Binding Vehicles, UpdateSourceTrigger=LostFocus}"
-              DisplayMemberPath="Color.Name"
-              SelectedValue="{Binding SelectedVehicle.Color.Id, UpdateSourceTrigger=LostFocus}"
-              SelectedValuePath="Color.Id" 
+              ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="Name"
+              SelectedValue="{Binding SelectedVehicle.Color, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="" 
             />
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddColorCommand}">Добавить</Button>
+
                     </StackPanel>
                 </Grid>
 
