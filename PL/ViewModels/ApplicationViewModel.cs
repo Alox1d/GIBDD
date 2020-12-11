@@ -1,5 +1,6 @@
 ﻿using GIBDD;
 using PL.Models;
+using PL.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,18 +13,26 @@ using VehicleModel = PL.Models.VehicleModel;
 
 namespace PL.ViewModels
 {
-    class ApplicationViewModel
+    class ApplicationViewModel : INotifyPropertyChanged
     {
         private Vehicle selectedVehicle;
+        public Vehicle SelectedVehicle
+        {
+            get { return selectedVehicle; }
+            set
+            {
+                selectedVehicle = value;
+                OnPropertyChanged("SelectedVehicle");
+            }
+        }
         private Model selectedModel;
         private GIBDDContext db;
         public ObservableCollection<Vehicle> Vehicles { get; set; }
         public ObservableCollection<Color> Colors { get; set; }
         public ObservableCollection<Model> Models { get; set; }
+        public int test { get; set; }
         // команда добавления нового объекта
         private RelayCommand addCommand;
-        private RelayCommand saveCommand;
-        public RelayCommand SaveChangesCommand { get; set; }
         public RelayCommand AddCommand
         {
             get
@@ -37,6 +46,42 @@ namespace PL.ViewModels
                   }));
             }
         }
+        private RelayCommand addModelCommand;
+        public RelayCommand AddModelCommand
+        {
+            get
+            {
+                return addModelCommand ??
+                  (addCommand = new RelayCommand(obj =>
+                  {
+                      AddModel w = new AddModel();
+                      ModelViewModel m = new ModelViewModel(db);
+                      m.CloseAction = new Action(w.Close);
+                      w.DataContext = m;
+                      w.ShowDialog();
+                  }));
+            }
+        }
+        private RelayCommand addColorCommand;
+        public RelayCommand AddColorCommand
+        {
+            get
+            {
+                return addColorCommand ??
+                  (addColorCommand = new RelayCommand(obj =>
+                  {
+                      AddColor w = new AddColor();
+                      ColorViewModel m = new ColorViewModel(db);
+                      m.CloseAction = new Action(w.Close);
+                      w.DataContext = m;
+                      //w.DataContext = new ColorViewModel(db);
+                      w.ShowDialog();
+                  }));
+            }
+        }
+        private RelayCommand saveCommand;
+        public RelayCommand SaveChangesCommand { get; set; }
+
         // команда удаления
         private RelayCommand removeCommand;
         public RelayCommand RemoveCommand
@@ -89,15 +134,7 @@ namespace PL.ViewModels
         //            }));
         //    }
         //}
-        public Vehicle SelectedVehicle
-        {
-            get { return selectedVehicle; }
-            set
-            {
-                selectedVehicle = value;
-                OnPropertyChanged("SelectedVehicle");
-            }
-        }
+
         public Model SelectedModel
         {
             get { return selectedModel; }
