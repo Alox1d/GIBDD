@@ -86,58 +86,19 @@
     <Compile Include="Entities\Offense.cs" />
     <Compile Include="Entities\VehicleOffense.cs" />
     <Compile Include="GIBDDContext.cs" />
-    <Compile Include="Migrations\202011231458429_InitialCreate.cs" />
-    <Compile Include="Migrations\202011231458429_InitialCreate.designer.cs">
-      <DependentUpon>202011231458429_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011231505143_numb.cs" />
-    <Compile Include="Migrations\202011231505143_numb.designer.cs">
-      <DependentUpon>202011231505143_numb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011231511476_long.cs" />
-    <Compile Include="Migrations\202011231511476_long.designer.cs">
-      <DependentUpon>202011231511476_long.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011231528344_license.cs" />
-    <Compile Include="Migrations\202011231528344_license.designer.cs">
-      <DependentUpon>202011231528344_license.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011250951568_foreign.cs" />
-    <Compile Include="Migrations\202011250951568_foreign.designer.cs">
-      <DependentUpon>202011250951568_foreign.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011250956121_foreign1.cs" />
-    <Compile Include="Migrations\202011250956121_foreign1.designer.cs">
-      <DependentUpon>202011250956121_foreign1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\IDbRepos.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Vehicle.cs" />
+    <Compile Include="Repository\CarOwnerRepositorySQL.cs" />
+    <Compile Include="Repository\DBReposSQL.cs" />
+    <Compile Include="Repository\VehicleRepositorySQL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011231458429_InitialCreate.resx">
-      <DependentUpon>202011231458429_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231505143_numb.resx">
-      <DependentUpon>202011231505143_numb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231511476_long.resx">
-      <DependentUpon>202011231511476_long.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231528344_license.resx">
-      <DependentUpon>202011231528344_license.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011250951568_foreign.resx">
-      <DependentUpon>202011250951568_foreign.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011250956121_foreign1.resx">
-      <DependentUpon>202011250956121_foreign1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />

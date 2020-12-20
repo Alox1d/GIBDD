@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GIBDD.Entities
+namespace DAL.Entities
 {
     public class DriverLicense
     {
         public int Id { get; set; }
+        public long Number { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public bool IsLicenseTaken { get; set; }
+        public bool IsInvalid { get; set; }
         public virtual ICollection<TakeStroke>? TakeStrokes { get; set; }
         //public ICollection<LicenseCategory> LicenseCategories { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
