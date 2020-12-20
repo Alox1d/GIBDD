@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        Title="MainWindow" Height="650" Width="820" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}" >
             <Setter Property="FontSize" Value="14" />
@@ -14,7 +15,7 @@
         </Style>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}" >
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="16"/>
+            <Setter Property="Margin" Value="16 0 16 0"/>
 
         </Style>
         <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}" >
@@ -22,11 +23,17 @@
 
         </Style>
         <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}" >
+            <Setter Property="Margin" Value="16 0 16 0"/>
+        </Style>
+        <Style TargetType="ListBox" BasedOn="{StaticResource MaterialDesignListBox}" >
             <Setter Property="Margin" Value="16"/>
+        </Style>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignAccentCheckBox}" >
+            <Setter Property="Margin" Value="0 8 0 0"/>
 
         </Style>
         <Style TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}" >
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Margin" Value="16 8 0 0"/>
 
         </Style>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}" >
@@ -35,28 +42,28 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid Height="60" VerticalAlignment="Top" Background="MediumBlue">
-            <TextBlock 
+        <Grid Height="60" VerticalAlignment="Top"  Background="MediumBlue">
+            <TextBlock  
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                 Text="Система ГИБДД" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
-            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+            <!--<Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
                 <materialDesign:PackIcon Kind="Power"/>
-            </Button>
+            </Button>-->
         </Grid>
         <dragablz:TabablzControl>
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController/>
             </dragablz:TabablzControl.InterTabController>
-            <TabItem Header="ТС">
+            <TabItem Header="Транспортные средства">
                 <Grid  Margin="0 0 0 0">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"  />
                         <ColumnDefinition Width="0.5*" />
-                        
+
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <ListBox  Grid.Column="0" ItemsSource="{Binding Vehicles}"
                  SelectedItem="{Binding SelectedVehicle}">
@@ -66,20 +73,26 @@
                                     <TextBlock  FontSize="18" Text="{Binding Path=RegistrationNumber}" />
                                     <TextBlock Text="{Binding Path=Color.Name}" />
                                     <TextBlock Text="{Binding Path=Model.Name}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Неактуальность ТО: "  />
+                                        <CheckBox Margin="0 0 0 0" IsHitTestVisible="false"  IsChecked="{Binding Path=MaintenanceSuccess}"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Добавить</Button>
+                    <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal">
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Зарегистрировать ТС</Button>
                         <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding RemoveCommand}"
         CommandParameter="{Binding SelectedVehicle}">Удалить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding CheckServe}"
+        >Проверить ТО</Button>
                         <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
         >Применить</Button>
-                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
-        >Проверить ТО</Button>
+                        
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="0">
+                    <ScrollViewer Grid.Column="1" Grid.Row="0">
+                    <StackPanel>
                         <StackPanel DataContext="{Binding SelectedVehicle}">
                             <Label Content="Выбранный элемент"  />
                             <Label Content="Номер гос. регистрации" />
@@ -99,44 +112,393 @@
                             <DatePicker Name="dp1" SelectedDate="{Binding MaintenanceDate, UpdateSourceTrigger=PropertyChanged}" />
                             <StackPanel Orientation="Horizontal" >
                                 <Label Content="Неактуальность ТО"  />
-                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding MaintenanceSuccess, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox IsHitTestVisible="false" VerticalAlignment="Center" IsChecked="{Binding MaintenanceSuccess, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
 
                         </StackPanel>
-                        <Label Content="Модель" />
-
-                        <ComboBox 
-              ItemsSource="{Binding Vehicles, UpdateSourceTrigger=PropertyChanged}"
-              DisplayMemberPath="Model.Name"
-              SelectedValue="{Binding SelectedVehicle.Model.Id, UpdateSourceTrigger=PropertyChanged}"
-              SelectedValuePath="Model.Id" 
-                            />
-                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddModelCommand}">Добавить</Button>
-
-                        <!--ItemsSource="{Binding Models,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedVehicle.Model.Id, Mode=TwoWay}" SelectedValuePath="Id"
-                            />-->
-                        <Label Content="Цвет" />
                         
-                        <ComboBox 
+                        <Label Content="Модель" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox  Grid.Column="0"
+              ItemsSource="{Binding Models, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="Name"
+              SelectedValue="{Binding SelectedVehicle.Model, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="" 
+                            />
+                        <Button Grid.Column="1" Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddModelCommand}">+</Button>
+                        </Grid>
+                        <Label Content="Категория" />
+                        <Grid>
+                              
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Grid.Column="0"
+              ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="Name"
+              SelectedValue="{Binding SelectedVehicle.Category, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="" 
+            />
+                        <Button Grid.Column="1" Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCategoryCommand}">+</Button>
+                        </Grid>
+                        <Label Content="Цвет" />
+                            <Grid  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                        <ComboBox  Grid.Column="0"
               ItemsSource="{Binding Colors, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
               SelectedValue="{Binding SelectedVehicle.Color, UpdateSourceTrigger=PropertyChanged}"
               SelectedValuePath="" 
             />
-                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddColorCommand}">Добавить</Button>
+                        <Button Grid.Column="1" Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddColorCommand}">+</Button>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
 
+            </TabItem>
+            <TabItem Header="Автовладельцы"  DataContext="{Binding CarOwnerViewModel}">
+                <Grid  Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="0.5*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListBox  Grid.Column="0" ItemsSource="{Binding CarOwners}"
+                 SelectedItem="{ Binding SelectedCarOwner}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock  FontSize="18" Text="{Binding Path=FIO}" />
+                                    <TextBlock Text="{Binding Path=PassportData}" />
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal">
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Зарегистрировать автовладельца</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding RemoveCommand}"
+        CommandParameter="{Binding SelectedCarOwner}">Удалить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
+        >Применить</Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.Row="0">
+                        <StackPanel DataContext="{Binding SelectedCarOwner}">
+                            <Label Content="Выбранный элемент"  />
+                            <Label Content="ФИО" />
+                            <TextBox 
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Stretch"
+                    MinWidth="280"
+                    AcceptsReturn="True" 
+                    VerticalScrollBarVisibility="Auto"
+                                Text="{Binding FIO, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Серия и номер паспорта" />
+                            <TextBox 
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Stretch"
+                    MinWidth="280"
+                    AcceptsReturn="True"
+                    VerticalScrollBarVisibility="Auto"
+                                Text="{Binding PassportData, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                        </StackPanel>
+
+
+                        <Label Content="Транспортные средства: " />
+                        <ListBox  Grid.Column="0" ItemsSource="{Binding SelectedCarOwner.Vehicles, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedVehicle, UpdateSourceTrigger=PropertyChanged}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="5">
+                                        <TextBlock Text="{Binding Path=RegistrationNumber, UpdateSourceTrigger=PropertyChanged}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <ComboBox 
+              ItemsSource="{Binding Vehicles, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="RegistrationNumber"
+              SelectedValue="{Binding SelectedVehicle, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="" 
+              Text="Добавить ТС"
+              IsEditable="True"
+              IsReadOnly="True">
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="DropDownClosed">
+                                    <i1:InvokeCommandAction Command="{Binding AddExistingVehicle}"/>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
+                        </ComboBox>
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding DeleteVehicleCommand}" CommandParameter="{Binding SelectedVehicle}">Удалить</Button>
                     </StackPanel>
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Правонарушения">
-                <TextBlock Text="Amazing designs!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <TabItem Header="Правонарушения" DataContext="{Binding OffenseViewModel}">
+                <Grid  Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="0.5*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                        <ListBox Grid.Column="0"  ItemsSource="{Binding Offenses}"
+                 SelectedItem="{Binding SelectedOffense}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <TextBlock FontSize="18" Text="Адрес: " />
+                                        <TextBlock FontSize="18" Text="{Binding Path=Address}" />
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <TextBlock Text="Дата: " />
+                                        <TextBlock Text="{Binding Path=Date}" />
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+
+                                            <TextBlock Text="Сумма штрафа: " />
+                                            <TextBlock Text="{Binding Path=SumPenalty}" />
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Stretch">
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Оформить правонарушение</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding RemoveCommand}"
+        CommandParameter="{Binding SelectedOffense}">Удалить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
+        >Применить</Button>
+                        </StackPanel>
+                    <ScrollViewer Grid.RowSpan="2" Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel >
+                        <StackPanel DataContext="{Binding SelectedOffense}">
+                            <Label Content="Выбранный элемент"  />
+                            <Label Content="Адрес происшествия" />
+                            <TextBox 
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Stretch"
+                            MinWidth="280"
+                            AcceptsReturn="True"
+                            VerticalScrollBarVisibility="Auto"
+                            Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Дата происшествия" />
+                            <DatePicker SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}" />
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Изъять права"></Label>
+                                <CheckBox  IsChecked="{Binding IsTakeLicense}"></CheckBox>
+                            </StackPanel>
+                            <Label Content="Дата возврата прав" />
+                            <DatePicker IsHitTestVisible="{Binding IsTakeLicense}" 
+                                        SelectedDate="{Binding SelectedTakeStroke.ReturnDate, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Label Content="Транспортное средство: " />
+                            <ComboBox 
+              ItemsSource="{Binding Vehicles, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="RegistrationNumber"
+              SelectedValue="{Binding SelectedOffense.CarDriver.Vehicle, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="" 
+              Text="Выбрать ТС"
+              IsEditable="True"
+              IsReadOnly="True">
+                                
+                            </ComboBox>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label Content="Нарушитель является автовладельцем"  />
+                                <CheckBox  VerticalAlignment="Center" IsChecked="{Binding SelectedOffense.CarDriver.IsCarOwner, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Label Content="ФИО водителя" />
+                            <TextBox 
+                                TextWrapping="Wrap"
+                                VerticalAlignment="Stretch"
+                                MinWidth="280"
+                                AcceptsReturn="True"
+                                VerticalScrollBarVisibility="Auto"
+                                IsReadOnly="{Binding SelectedOffense.CarDriver.IsCarOwner}"
+                                Text="{Binding SelectedOffense.CarDriver.FIO, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                        <Label Content="Список нарушений: " />
+                        <ListBox  ItemsSource="{Binding SelectedOffense.CarDriver.VehicleOffenses, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedVehicleOffense, UpdateSourceTrigger=PropertyChanged}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Номер статьи: " />
+                                            <TextBlock Text="{Binding Path=ArticleOffense.Number, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Штраф: " />
+                                            <TextBlock Text="{Binding Path=Penalty, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                            <!--<StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Срок изъятия прав в месяцах: " />
+                                            <TextBlock Text="{Binding Path=TakeLicenseTime, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>-->
+
+                                        </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddVehicleOffenseCommand}">Добавить</Button>
+                                <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding DeleteVehicleOffenseCommand}" CommandParameter="{Binding SelectedVehicleOffense}">Удалить</Button>
+
+                        </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="Сумма штрафа: " />
+                                <TextBlock Text="{Binding SelectedOffense.SumPenalty}" />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
             </TabItem>
-            <TabItem Header="Автовладельцы">
-                <TextBlock Text="Ask for any question!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </TabItem>
-            <TabItem Header="Водительские права">
-                <TextBlock Text="Ask for any question!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TabItem Header="Водительские права" DataContext="{Binding DriverLicenseViewModel}">
+                <Grid  Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="0.5*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Column="0"  ItemsSource="{Binding DriverLicenses}"
+                 SelectedItem="{Binding SelectedDriverLicense}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock FontSize="18" Text="{Binding Path=Number}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Изъято: " />
+                                        <CheckBox Margin="0 0 0 0" IsHitTestVisible="false"  IsChecked="{Binding Path=IsInvalid}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Stretch">
+                        <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Оформить удостоверение</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding RemoveCommand}"
+        CommandParameter="{Binding SelectedDriverLicense}">Удалить</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding CheckLicense}"
+        >Проверка прав</Button>
+                        <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
+        >Применить</Button>
+                    </StackPanel>
+                    <ScrollViewer  Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                        <StackPanel >
+                            <Label Content="Выбранный элемент"  />
+
+                            <Label Content="Владелец: " />
+                            <ComboBox 
+              ItemsSource="{Binding CarOwners, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="FIO"
+              SelectedValue="{Binding SelectedDriverLicense.CarOwner, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="" 
+              Text="Выбрать автовладельца"
+              IsEditable="True"
+              IsReadOnly="True">
+                            </ComboBox>
+
+                            <StackPanel DataContext="{Binding SelectedDriverLicense}">
+                                
+                                <Label Content="Серия и номер" />
+                                <TextBox 
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Stretch"
+                            MinWidth="280"
+                            AcceptsReturn="True"
+                            VerticalScrollBarVisibility="Auto"
+                            Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" />
+                                <Label Content="Дата выдачи" />
+                                <DatePicker SelectedDate="{Binding ReleaseDate, UpdateSourceTrigger=PropertyChanged}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Изъято: " />
+                                    <CheckBox Margin="0 8 0 0"   IsChecked="{Binding Path=IsInvalid}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Label Content="Строки изъятия: " />
+                                <ListBox  ItemsSource="{Binding SelectedDriverLicense.TakeStrokes, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedTakeStroke, UpdateSourceTrigger=PropertyChanged}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Дата изъятия: " />
+                                                    <TextBlock Text="{Binding Path=TakeDate, UpdateSourceTrigger=PropertyChanged}" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Дата возврата: " />
+                                                    <TextBlock Text="{Binding Path=ReturnDate, UpdateSourceTrigger=PropertyChanged}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding DeleteTakeStrokeCommand}" CommandParameter="{Binding SelectedTakeStroke}">Удалить</Button>
+
+
+                            <Label Content="Категории: " />
+                            <ListBox  ItemsSource="{Binding SelectedDriverLicense.Categories, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Наименование: " />
+                                                <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCategoryCommand}">Добавить</Button>
+                                <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding DeleteCategoryCommand}" CommandParameter="{Binding SelectedCategory}">Удалить</Button>
+
+                            </StackPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
             </TabItem>
 
         </dragablz:TabablzControl>

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GIBDD.Entities
+namespace DAL.Entities
 {
-    //public class Offense
-    //{
-    //    public int Id { get; set; }
-    //    public DateTime Date { get; set; }
-    //    public string Address { get; set; }
+    public class Offense
+    {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public string Address { get; set; }
+        public double SumPenalty { get; set; }
+        public CarDriver CarDriver { get; set; }
 
-    //    public ICollection<CarDriver> CarDrivers { get; set; }
 
-
-    //}
+    }
 }

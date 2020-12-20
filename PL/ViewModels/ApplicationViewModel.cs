@@ -1,4 +1,8 @@
-﻿using GIBDD;
+﻿using BLL.Services;
+using DAL;
+using DAL.Entities;
+using DAL.Interfaces;
+using DAL.Repository;
 using PL.Models;
 using PL.Views;
 using System;
@@ -9,13 +13,50 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using VehicleModel = PL.Models.VehicleModel;
-
+using System.Data.Entity;
 namespace PL.ViewModels
 {
     class ApplicationViewModel : INotifyPropertyChanged
     {
+        OffenseViewModel offenseViewModel;
+
+        public OffenseViewModel OffenseViewModel
+        {
+            get { return offenseViewModel; }
+            set
+            {
+                offenseViewModel = value;
+                OnPropertyChanged("OffenseViewModel");
+            }
+        }
+        DriverLicenseViewModel driverLicenseViewModel;
+
+        public DriverLicenseViewModel DriverLicenseViewModel
+        {
+            get { return driverLicenseViewModel; }
+            set
+            {
+                driverLicenseViewModel = value;
+                OnPropertyChanged("DriverLicenseViewModel");
+            }
+        }
+        CarOwnerViewModel carOwnerViewModel;
+
+        public CarOwnerViewModel CarOwnerViewModel
+        {
+            get { return carOwnerViewModel; }
+            set
+            {
+                carOwnerViewModel = value;
+                OnPropertyChanged("CarOwnerViewModel");
+            }
+        }
+        MaintenanceService maintenanceService;
+
         private Vehicle selectedVehicle;
+
         public Vehicle SelectedVehicle
         {
             get { return selectedVehicle; }
@@ -25,12 +66,30 @@ namespace PL.ViewModels
                 OnPropertyChanged("SelectedVehicle");
             }
         }
-        private Model selectedModel;
         private GIBDDContext db;
+        private IDbRepos repos;
         public ObservableCollection<Vehicle> Vehicles { get; set; }
         public ObservableCollection<Color> Colors { get; set; }
         public ObservableCollection<Model> Models { get; set; }
-        public int test { get; set; }
+        public ObservableCollection<Category> Categories { get; set; }
+
+        public ApplicationViewModel()
+        {
+            db = new GIBDDContext();
+            repos = new DBReposSQL();
+            //Vehicles = new ObservableCollection<Vehicle>
+            //{
+            //    new Vehicle { RegistrationNumber="А707ХХ" }
+            //};
+            LoadData();
+
+            this.maintenanceService = new MaintenanceService(db);
+
+
+
+
+        }
+
         // команда добавления нового объекта
         private RelayCommand addCommand;
         public RelayCommand AddCommand
@@ -43,6 +102,7 @@ namespace PL.ViewModels
                       Vehicle v = new Vehicle();
                       Vehicles.Insert(0, v);
                       SelectedVehicle = v;
+
                   }));
             }
         }
@@ -59,6 +119,7 @@ namespace PL.ViewModels
                       m.CloseAction = new Action(w.Close);
                       w.DataContext = m;
                       w.ShowDialog();
+                      LoadData();
                   }));
             }
         }
@@ -76,11 +137,79 @@ namespace PL.ViewModels
                       w.DataContext = m;
                       //w.DataContext = new ColorViewModel(db);
                       w.ShowDialog();
+                      LoadData();
+
+                  }));
+            }
+        }
+        private RelayCommand addCategoryCommand;
+        public RelayCommand AddCategoryCommand
+        {
+            get
+            {
+                return addCategoryCommand ??
+                  (addCategoryCommand = new RelayCommand(obj =>
+                   {
+                      AddCategory w = new AddCategory();
+                      CategoryViewModel m = new CategoryViewModel(db);
+                      m.CloseAction = new Action(w.Close);
+                      //VehicleOffense vehicleOffense = new VehicleOffense();
+                      //m.SelectedVehicleOffense = vehicleOffense;
+                      w.DataContext = m;
+                      w.ShowDialog();
+                      if (m.SelectedCategory != null)
+                          SelectedVehicle.Category = m.SelectedCategory;
+                      //SelectedOffense.CarDriver.VehicleOffenses.Add(vehicleOffense);
+                      //LoadData();
+
                   }));
             }
         }
         private RelayCommand saveCommand;
-        public RelayCommand SaveChangesCommand { get; set; }
+        //public RelayCommand SaveChangesCommand { get; set; }
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                  (saveCommand = new RelayCommand(obj =>
+                  {
+                      if (SelectedVehicle != null && SelectedVehicle.Id == 0)
+                      {
+                          db.Vehicles.Add(SelectedVehicle);
+                      }
+                      db.SaveChanges();
+                      LoadData();
+                  }
+                 ));
+            }
+        }
+
+        private RelayCommand checkServe;
+        //public RelayCommand CheckServeCommand { get; set; }
+        public RelayCommand CheckServe
+        {
+            get
+            {
+                return checkServe ??
+                  (checkServe = new RelayCommand(obj =>
+                  {
+                      int count = maintenanceService.CheckMaintenance(Vehicles.ToList());
+                      LoadData();
+                      //db.SaveChanges();
+                      SelectedVehicle = null;
+
+                      Message w = new Message();
+                      MessageViewModel m = new MessageViewModel("Обновлено ТО", count.ToString());
+                      //m.CloseAction = new Action(w.Close);
+                      w.DataContext = m;
+                      //w.DataContext = new ColorViewModel(db);
+                      w.ShowDialog();
+                      //MessageBox.Show("Кол-во обновленных ТО: " + count);
+                  }
+                 ));
+            }
+        }
 
         // команда удаления
         private RelayCommand removeCommand;
@@ -95,23 +224,17 @@ namespace PL.ViewModels
                       if (v != null)
                       {
                           Vehicles.Remove(v);
+                          if (v.Id != 0)
+                          {
+                              db.CarDrivers.Where(c => c.Vehicle.Id == v.Id).Load();
+                              db.Vehicles.Remove(v);
+                          }
                       }
                   },
                  (obj) => Vehicles.Count > 0));
             }
         }
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return saveCommand ??
-                  (saveCommand = new RelayCommand(obj =>
-                  {
-                      db.SaveChanges();
-                  }
-                 ));
-            }
-        }
+
         private RelayCommand doubleCommand;
         //public RelayCommand DoubleCommand
         //{
@@ -134,6 +257,7 @@ namespace PL.ViewModels
         //            }));
         //    }
         //}
+        private Model selectedModel;
 
         public Model SelectedModel
         {
@@ -148,19 +272,22 @@ namespace PL.ViewModels
             }
         }
 
-        public ApplicationViewModel()
+
+
+        private void LoadData()
         {
-            db = new GIBDDContext();
-            //Vehicles = new ObservableCollection<Vehicle>
-            //{
-            //    new Vehicle { RegistrationNumber="А707ХХ" }
-            //};
+            //db.Vehicles.Include(p=>p.Ca);
             var vehicles = db.Vehicles.ToList();
             Vehicles = new ObservableCollection<Vehicle>(vehicles);
             Colors = new ObservableCollection<Color>(db.Colors.ToList());
             Models = new ObservableCollection<Model>(db.Models.ToList());
+            Categories = new ObservableCollection<Category>(db.Categories.ToList());
 
+            OffenseViewModel = new OffenseViewModel(this);
+            CarOwnerViewModel = new CarOwnerViewModel();
+            DriverLicenseViewModel = new DriverLicenseViewModel();
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

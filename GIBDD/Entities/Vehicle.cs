@@ -1,14 +1,7 @@
-﻿using GIBDD.Entities;
-using PostSharp.Patterns.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GIBDD
+namespace DAL.Entities
 {
     public class Vehicle
     {
@@ -26,8 +19,10 @@ namespace GIBDD
         public bool MaintenanceSuccess { get; set; }
 
         public virtual CarOwner CarOwner { get; set; }
-        //public CarDriver CarDriver { get; set; }
+        //public virtual CarDriver CarDriver { get; set; }
+
         public virtual DriverLicense DriverLicense { get; set; }
+        public virtual Category Category { get; set; }
 
 
     }

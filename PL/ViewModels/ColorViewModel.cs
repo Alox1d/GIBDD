@@ -1,4 +1,5 @@
-﻿using GIBDD;
+﻿using DAL;
+using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PL.ViewModels
 {
-    class ColorViewModel
+    class ColorViewModel 
     {
         public Action CloseAction { get; set; }
         GIBDDContext db;
@@ -46,11 +47,13 @@ namespace PL.ViewModels
             Current = new Color();
 
         }
+        #region prop
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        #endregion
     }
 }

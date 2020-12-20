@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.Migrations;
 
-namespace GIBDD.Migrations
+namespace DAL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

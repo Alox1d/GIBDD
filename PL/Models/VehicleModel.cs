@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace PL.Models
         private string carOwner;
         private string driverLicense;
 
-        public VehicleModel(GIBDD.Vehicle v)
+        public VehicleModel(Vehicle v)
         {
             //RegistrationNumber = v.RegistrationNumber;
         }
