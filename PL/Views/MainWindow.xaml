@@ -264,7 +264,7 @@
                     </Grid.RowDefinitions>
                     
                         <ListBox Grid.Column="0"  ItemsSource="{Binding Offenses}"
-                 SelectedItem="{Binding SelectedOffense}">
+                 SelectedItem="{Binding SelectedOffense, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel >
@@ -375,10 +375,10 @@
                                 <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding DeleteVehicleOffenseCommand}" CommandParameter="{Binding SelectedVehicleOffense}">Удалить</Button>
 
                         </StackPanel>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" DataContext="{Binding SelectedOffense, UpdateSourceTrigger=PropertyChanged}">
 
                                 <TextBlock Text="Сумма штрафа: " />
-                                <TextBlock Text="{Binding SelectedOffense.SumPenalty}" />
+                                <TextBlock Text="{Binding Path=SumPenalty, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
                         </StackPanel>

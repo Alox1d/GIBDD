@@ -255,6 +255,7 @@ namespace PL.ViewModels
                           sum += VO.Penalty;
                       }
                       SelectedOffense.SumPenalty = sum;
+                      OnPropertyChanged("SelectedOffense");
                   }));
             }
         }
