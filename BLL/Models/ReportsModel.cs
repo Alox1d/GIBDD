@@ -8,7 +8,7 @@ namespace Bll.Models.ReportsModel
 {
     public class ArticleSum
     {
-        public string Article { get; set; }
+        public string Number { get; set; }
         public double? SumOfPenalty { get; set; }
     }
 }

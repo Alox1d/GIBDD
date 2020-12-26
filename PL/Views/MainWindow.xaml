@@ -69,7 +69,7 @@
                  SelectedItem="{Binding SelectedVehicle}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="5">
+                                <StackPanel >
                                     <TextBlock  FontSize="18" Text="{Binding Path=RegistrationNumber}" />
                                     <TextBlock Text="{Binding Path=Color.Name}" />
                                     <TextBlock Text="{Binding Path=Model.Name}" />
@@ -180,7 +180,7 @@
                  SelectedItem="{ Binding SelectedCarOwner}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="5">
+                                <StackPanel >
                                     <TextBlock  FontSize="18" Text="{Binding Path=FIO}" />
                                     <TextBlock Text="{Binding Path=PassportData}" />
 
@@ -267,16 +267,16 @@
                  SelectedItem="{Binding SelectedOffense}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="5">
+                                <StackPanel >
                                     <StackPanel Orientation="Horizontal">
 
-                                        <TextBlock FontSize="18" Text="Адрес: " />
+                                        <!--<TextBlock FontSize="18" Text="Адрес: " />-->
                                         <TextBlock FontSize="18" Text="{Binding Path=Address}" />
 
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
 
-                                        <TextBlock Text="Дата: " />
+                                        <!--<TextBlock Text="Дата: " />-->
                                         <TextBlock Text="{Binding Path=Date}" />
                                     </StackPanel>
 
@@ -402,7 +402,7 @@
                  SelectedItem="{Binding SelectedDriverLicense}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="5">
+                                <StackPanel >
                                     <TextBlock FontSize="18" Text="{Binding Path=Number}" />
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Изъято: " />
@@ -495,6 +495,58 @@
 
                             </StackPanel>
 
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Отчёт по правонарушениям" DataContext="{Binding ReportViewModel}">
+                <Grid  Margin="0 0 0 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"  />
+                        <ColumnDefinition Width="0.5*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Column="0" Grid.RowSpan="2"  ItemsSource="{Binding ArticlesSum}"
+                 >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontSize="18" Text="Статья: " />
+                                        <TextBlock FontSize="18" Text="{Binding Path=Number}" />
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <TextBlock  Text="Сумма: " />
+                                    <TextBlock  Text="{Binding Path=SumOfPenalty}" />
+                                    </StackPanel>
+
+                                    <!--<StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Изъято: " />
+                                        <CheckBox Margin="0 0 0 0" IsHitTestVisible="false"  IsChecked="{Binding Path=IsInvalid}"/>
+                                    </StackPanel>-->
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Stretch">
+                    </StackPanel>
+                    <ScrollViewer  Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                        <StackPanel >
+                            <StackPanel >
+                                <Label Content="Начальная дата" />
+                                <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" />
+                                <Label Content="Конечная дата" />
+                                <DatePicker SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding MakeReport}">Сформировать отчёт</Button>
+                            </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>

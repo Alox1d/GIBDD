@@ -13,7 +13,7 @@ namespace DAL.Entities
         //public bool? TakeLicense { get; set; }
         public int TakeLicenseTime { get; set; } // в месяцах
         //public virtual CarOwner CarOwner { get; set; }
-        //public CarDriver CarDriver { get; set; }
+        public CarDriver CarDriver { get; set; }
 
         public virtual ArticleOffense ArticleOffense { get; set; }
 

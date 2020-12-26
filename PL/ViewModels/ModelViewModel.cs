@@ -13,19 +13,37 @@ namespace PL.ViewModels
 {
     class ModelViewModel : INotifyPropertyChanged
     {
-        public Action CloseAction { get; set; }
-        GIBDDContext db;
-        //List<Model> Models;
-        private Model currentModel;
-        public Model CurrentModel
+        private Model selectedModel;
+
+        public Model SelectedModel
         {
-            get { return currentModel; }
+            get { return selectedModel; }
             set
             {
-                currentModel = value;
-                OnPropertyChanged("CurrentModel");
+                selectedModel = value;
+                OnPropertyChanged("SelectedModel");
             }
         }
+
+        public ObservableCollection<Model> Models { get; set; }
+
+        private GIBDDContext db;
+        public Action CloseAction { get; set; }
+
+        public ModelViewModel(GIBDDContext db)
+        {
+            this.db = db;
+            LoadData();
+
+        }
+        private void LoadData()
+        {
+
+            Models = new ObservableCollection<Model>(db.Models.ToList());
+
+        }
+
+        // команда добавления нового объекта
         private RelayCommand addCommand;
         public RelayCommand AddCommand
         {
@@ -34,27 +52,65 @@ namespace PL.ViewModels
                 return addCommand ??
                   (addCommand = new RelayCommand(obj =>
                   {
-                      //Model v = new Model();
-                      db.Models.Add(CurrentModel);
-                      db.SaveChanges();
-                      CloseAction();
-
+                      Model v = new Model();
+                      Models.Insert(0, v);
+                      SelectedModel = v;
                   }));
             }
         }
 
-        public ModelViewModel(GIBDDContext db)
-        {
-            this.db = db;
-            //Models = db.Models.ToList();
-            CurrentModel = new Model();
 
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                  (saveCommand = new RelayCommand(obj =>
+                  {
+                      if (SelectedModel != null && SelectedModel.Id == 0)
+                      {
+                          db.Models.Add(SelectedModel);
+                      }
+                      db.SaveChanges();
+                      LoadData();
+                  }
+                 ));
+            }
         }
+
+
+
+        // команда удаления
+        private RelayCommand removeCommand;
+        public RelayCommand RemoveCommand
+        {
+            get
+            {
+                return removeCommand ??
+                  (removeCommand = new RelayCommand(obj =>
+                  {
+                      Model v = obj as Model;
+                      if (v != null)
+                      {
+                          Models.Remove(v);
+                          if (v.Id != 0)
+                              db.Models.Remove(v);
+                      }
+                  },
+                 (obj) => Models.Count > 0));
+            }
+        }
+
+
+
+        #region prop
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+        #endregion
     }
 }
