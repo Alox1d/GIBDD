@@ -20,6 +20,17 @@ namespace PL.ViewModels
 {
     class ApplicationViewModel : INotifyPropertyChanged
     {
+        ReportViewModel reportViewModel;
+
+        public ReportViewModel ReportViewModel
+        {
+            get { return reportViewModel; }
+            set
+            {
+                reportViewModel = value;
+                OnPropertyChanged("ReportViewModel");
+            }
+        }
         OffenseViewModel offenseViewModel;
 
         public OffenseViewModel OffenseViewModel
@@ -42,6 +53,7 @@ namespace PL.ViewModels
                 OnPropertyChanged("DriverLicenseViewModel");
             }
         }
+
         CarOwnerViewModel carOwnerViewModel;
 
         public CarOwnerViewModel CarOwnerViewModel
@@ -84,10 +96,21 @@ namespace PL.ViewModels
             LoadData();
 
             this.maintenanceService = new MaintenanceService(db);
+        }
 
+        private void LoadData()
+        {
+            //db.Vehicles.Include(p=>p.Ca);
+            var vehicles = db.Vehicles.ToList();
+            Vehicles = new ObservableCollection<Vehicle>(vehicles);
+            Colors = new ObservableCollection<Color>(db.Colors.ToList());
+            Models = new ObservableCollection<Model>(db.Models.ToList());
+            Categories = new ObservableCollection<Category>(db.Categories.ToList());
 
-
-
+            OffenseViewModel = new OffenseViewModel(this);
+            CarOwnerViewModel = new CarOwnerViewModel();
+            DriverLicenseViewModel = new DriverLicenseViewModel();
+            ReportViewModel = new ReportViewModel();
         }
 
         // команда добавления нового объекта
@@ -274,19 +297,6 @@ namespace PL.ViewModels
 
 
 
-        private void LoadData()
-        {
-            //db.Vehicles.Include(p=>p.Ca);
-            var vehicles = db.Vehicles.ToList();
-            Vehicles = new ObservableCollection<Vehicle>(vehicles);
-            Colors = new ObservableCollection<Color>(db.Colors.ToList());
-            Models = new ObservableCollection<Model>(db.Models.ToList());
-            Categories = new ObservableCollection<Category>(db.Categories.ToList());
-
-            OffenseViewModel = new OffenseViewModel(this);
-            CarOwnerViewModel = new CarOwnerViewModel();
-            DriverLicenseViewModel = new DriverLicenseViewModel();
-        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

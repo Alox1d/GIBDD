@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Views"
         mc:Ignorable="d"
-        Title="Добавление цвета" Height="220" Width="200">
+        Title="Добавление цвета" Height="500" Width="400">
     <Window.Resources>
-        <Style TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}" >
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}" >
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="16"/>
         </Style>
-        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}" >
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}" >
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="16"/>
+            <Setter Property="Margin" Value="16 0 16 0"/>
 
         </Style>
         <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}" >
@@ -21,24 +21,72 @@
 
         </Style>
         <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}" >
+            <Setter Property="Margin" Value="16 0 16 0"/>
+        </Style>
+        <Style TargetType="ListBox" BasedOn="{StaticResource MaterialDesignListBox}" >
             <Setter Property="Margin" Value="16"/>
+        </Style>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignAccentCheckBox}" >
+            <Setter Property="Margin" Value="0 0 0 -16"/>
 
         </Style>
+        <Style TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}" >
+            <Setter Property="Margin" Value="16 8 0 0"/>
 
-
+        </Style>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}" >
             <Setter Property="Width" Value="100" />
             <Setter Property="Margin" Value="16" />
         </Style>
     </Window.Resources>
-    <Grid>
-        <StackPanel Grid.Column="1" Grid.Row="0">
-            <StackPanel DataContext="{Binding Current}">
-                <Label Content="Наименование" HorizontalAlignment="Center" />
-                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Добавить</Button>
-        </StackPanel>
 
+    <Grid  Margin="0 0 0 0">
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="1*"  />
+            <ColumnDefinition Width="Auto" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0"  Orientation="Vertical">
+            <TextBlock Margin="16 16 16 0" Text="Цвета" />
+
+            <ListBox ItemsSource="{Binding Colors}"
+                 SelectedItem="{Binding SelectedColor}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2"  Grid.Column="0"  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <Button Margin="16"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding AddCommand}">Добавить</Button>
+            <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding RemoveCommand}"
+        CommandParameter="{Binding SelectedColor}">Удалить</Button>
+            <Button Margin="16"   Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveCommand}"
+        >Применить</Button>
+
+        </StackPanel>
+        <ScrollViewer Grid.Column="1" Grid.Row="0">
+
+            <StackPanel DataContext="{Binding SelectedColor}">
+                <Label Content="Добавление нарушения"  />
+                <Label Content="Наименование" />
+                <TextBox 
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Stretch"
+                    MinWidth="280"
+                    AcceptsReturn="True" 
+                    VerticalScrollBarVisibility="Auto"
+                                Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

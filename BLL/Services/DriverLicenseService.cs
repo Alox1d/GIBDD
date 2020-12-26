@@ -9,10 +9,10 @@ namespace BLL.Services
 {
     public class DriverLicenseService
     {
-        //private GIBDDContext db;
-        public DriverLicenseService(GIBDDContext repos)
+
+        public DriverLicenseService()
         {
-            //db = repos;
+
         }
 
         public int CheckLicense(List<DriverLicense> driverLicenses)

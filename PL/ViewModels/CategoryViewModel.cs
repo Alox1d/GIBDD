@@ -28,17 +28,6 @@ namespace PL.ViewModels
                 OnPropertyChanged("SelectedCategory");
             }
         }
-        //private VehicleOffense selectedVehicleOffense;
-
-        //public VehicleOffense SelectedVehicleOffense
-        //{
-        //    get { return selectedVehicleOffense; }
-        //    set
-        //    {
-        //        selectedVehicleOffense = value;
-        //        OnPropertyChanged("SelectedVehicleOffense");
-        //    }
-        //}
 
         public ObservableCollection<Category> Categories { get; set; }
 

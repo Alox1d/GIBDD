@@ -15,6 +15,7 @@ namespace DAL.Entities
         public Vehicle? Vehicle { get; set; }
         //public virtual DriverLicense? DriverLicense { get; set; }
         public ICollection<VehicleOffense>? VehicleOffenses { get; set; }
+        public ICollection<Offense> Offenses { get; set; }
 
         public CarDriver()
         {

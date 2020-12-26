@@ -65,7 +65,7 @@ namespace PL.ViewModels
 
             LoadData();
 
-            this.driverLicenseService = new DriverLicenseService(db);
+            this.driverLicenseService = new DriverLicenseService(  );
 
         }
         private void LoadData()

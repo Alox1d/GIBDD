@@ -249,6 +249,12 @@ namespace PL.ViewModels
                       if (SelectedOffense != null && vehicleOffense != null)
                           SelectedOffense.CarDriver.VehicleOffenses.Add(vehicleOffense);
                       //LoadData();
+                      double sum = 0;
+                      foreach (var VO in SelectedOffense.CarDriver.VehicleOffenses)
+                      {
+                          sum += VO.Penalty;
+                      }
+                      SelectedOffense.SumPenalty = sum;
                   }));
             }
         }
