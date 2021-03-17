@@ -78,3 +78,41 @@ C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конст�
 C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\GIBDD\BLL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\GIBDD\BLL\bin\Debug\Ninject.xml
 C:\Users\Alox1d\OneDrive\Университет\Дисциплины\Конструирование ПО\GIBDD\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\BLL.dll.config
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\BLL.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\BLL.pdb
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\AutoMapper.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\EntityFramework.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\GIBDD.exe
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\Ninject.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\GIBDD.pdb
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\GIBDD.exe.config
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\AutoMapper.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\EntityFramework.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\bin\Debug\Ninject.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\obj\Debug\BLL.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\5\Конструирование ПО\GIBDD\BLL\obj\Debug\BLL.pdb
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\BLL.dll.config
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\BLL.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\BLL.pdb
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\AutoMapper.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\EntityFramework.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\GIBDD.exe
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\Ninject.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\GIBDD.pdb
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\GIBDD.exe.config
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\AutoMapper.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\EntityFramework.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\bin\Debug\Ninject.xml
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.dll
+C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.pdb

@@ -122,6 +122,7 @@ namespace PL.ViewModels
                   (addCommand = new RelayCommand(obj =>
                   {
                       Offense v = new Offense();
+                      v.Date = DateTime.Now;
                       Offenses.Insert(0, v);
                       //SelectedCarDriver = 
                       var carDriver = new CarDriver();
@@ -246,15 +247,18 @@ namespace PL.ViewModels
                       m.SelectedVehicleOffense = vehicleOffense;
                       w.DataContext = m;
                       w.ShowDialog();
-                      if (SelectedOffense != null && vehicleOffense != null)
-                          SelectedOffense.CarDriver.VehicleOffenses.Add(vehicleOffense);
-                      //LoadData();
-                      double sum = 0;
-                      foreach (var VO in SelectedOffense.CarDriver.VehicleOffenses)
+                      if (SelectedOffense != null && vehicleOffense != null && vehicleOffense.ArticleOffense != null)
                       {
-                          sum += VO.Penalty;
+                          SelectedOffense.CarDriver.VehicleOffenses.Add(vehicleOffense);
+                          double sum = 0;
+                          foreach (var VO in SelectedOffense.CarDriver.VehicleOffenses)
+                          {
+                              sum += VO.Penalty;
+                          }
+                          SelectedOffense.SumPenalty = sum;
                       }
-                      SelectedOffense.SumPenalty = sum;
+                      //LoadData();
+
                       OnPropertyChanged("SelectedOffense");
                   }));
             }

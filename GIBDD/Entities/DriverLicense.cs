@@ -12,10 +12,10 @@ namespace DAL.Entities
         public long Number { get; set; }
         public DateTime ReleaseDate { get; set; }
         public bool IsInvalid { get; set; }
-        public virtual ICollection<TakeStroke>? TakeStrokes { get; set; }
+        public virtual List<TakeStroke>? TakeStrokes { get; set; }
         //public ICollection<LicenseCategory> LicenseCategories { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
-        public virtual CarOwner CarOwner { get; set; }
+        public virtual List<Category> Categories { get; set; }
+        public CarOwner CarOwner { get; set; }
 
     }
 
@@ -43,8 +43,8 @@ namespace DAL.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         //public ICollection<LicenseCategory> LicenseCategories { get; set; }
-        public ICollection<DriverLicense> DriverLicenses { get; set; }
-        public ICollection<Vehicle> Vehicles { get; set; }
+        public List<DriverLicense> DriverLicenses { get; set; }
+        public List<Vehicle> Vehicles { get; set; }
 
     }
 }

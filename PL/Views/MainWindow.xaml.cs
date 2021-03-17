@@ -27,5 +27,10 @@ namespace PL
             InitializeComponent();
             DataContext = new ApplicationViewModel();
         }
+
+        private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

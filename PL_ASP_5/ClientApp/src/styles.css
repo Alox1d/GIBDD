@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding-right: 100px !important;
+}
+
+.mat-form-field-infix {
+  width: 250px !important;
+}
+.md-datepicker-button {
+  display: none;
+}

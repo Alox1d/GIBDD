@@ -8,7 +8,6 @@ namespace DAL.Entities
         public int Id { get; set; }
          
         public string RegistrationNumber { get; set; }
-        //public int? Mileage { get; set; } // Пробег
         public virtual Model Model { get; set; } 
 
         public virtual Color Color { get; set; }
@@ -19,7 +18,6 @@ namespace DAL.Entities
         public bool MaintenanceSuccess { get; set; }
 
         public virtual CarOwner CarOwner { get; set; }
-        //public virtual CarDriver CarDriver { get; set; }
 
         public virtual DriverLicense DriverLicense { get; set; }
         public virtual Category Category { get; set; }

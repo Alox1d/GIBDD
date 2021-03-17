@@ -26,17 +26,22 @@ namespace BLL.Services
                         //TakeStroke takeStroke = new TakeStroke { TakeDate = DateTime.Now, ReturnDate = DateTime.Now.AddMonths(sum) };
                         if (SelectedTakeStroke != null)
                         {
-                            if ((SelectedTakeStroke.ReturnDate - DateTime.Now).TotalSeconds > 0)
-                            {
-                                SelectedOffense.CarDriver.Vehicle.CarOwner.DriverLicense.IsInvalid = true;
-                            }
-                            SelectedTakeStroke.TakeDate = SelectedOffense.Date;
-                            SelectedOffense.CarDriver.Vehicle.CarOwner.DriverLicense.TakeStrokes.Add(SelectedTakeStroke);
+                            UpdateLicense(SelectedOffense, SelectedTakeStroke);
                         }
 
                     }
                 }
 
+        }
+
+        private static void UpdateLicense(Offense SelectedOffense, TakeStroke SelectedTakeStroke)
+        {
+            if ((SelectedTakeStroke.ReturnDate - DateTime.Now).TotalSeconds > 0)
+            {
+                SelectedOffense.CarDriver.Vehicle.CarOwner.DriverLicense.IsInvalid = true;
+            }
+            SelectedTakeStroke.TakeDate = SelectedOffense.Date;
+            SelectedOffense.CarDriver.Vehicle.CarOwner.DriverLicense.TakeStrokes.Add(SelectedTakeStroke);
         }
     }
 }
