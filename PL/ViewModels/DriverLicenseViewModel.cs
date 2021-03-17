@@ -38,6 +38,7 @@ namespace PL.ViewModels
             set
             {
                 selectedTakeStroke = value;
+                //selectedTakeStroke.ReturnDate = 
                 OnPropertyChanged("SelectedTakeStroke");
             }
         }

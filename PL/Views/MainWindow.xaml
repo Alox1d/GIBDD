@@ -282,7 +282,7 @@
 
                                     <StackPanel Orientation="Horizontal">
 
-                                            <TextBlock Text="Сумма штрафа: " />
+                                            <TextBlock Text="Сумма штрафов: " />
                                             <TextBlock Text="{Binding Path=SumPenalty}" />
                                     </StackPanel>
 
@@ -377,7 +377,7 @@
                         </StackPanel>
                             <StackPanel Orientation="Horizontal" DataContext="{Binding SelectedOffense, UpdateSourceTrigger=PropertyChanged}">
 
-                                <TextBlock Text="Сумма штрафа: " />
+                                <TextBlock Text="Сумма штрафов: " />
                                 <TextBlock Text="{Binding Path=SumPenalty, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 

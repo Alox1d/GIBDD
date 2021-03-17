@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{546CCB94-DCF2-4E63-BED9-51B213A9C129}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL_WPF", "PL\PL_WPF.csproj", "{546CCB94-DCF2-4E63-BED9-51B213A9C129}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "GIBDD\DAL.csproj", "{015E3ED0-0D70-47B6-A790-25716E30876E}"
 EndProject
@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{8
 	ProjectSection(ProjectDependencies) = postProject
 		{015E3ED0-0D70-47B6-A790-25716E30876E} = {015E3ED0-0D70-47B6-A790-25716E30876E}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL_ASP_5", "PL_ASP_5\PL_ASP_5.csproj", "{FC40C18E-5EC4-47CB-8CAE-721F014AAFAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL_ASP_5", "DAL_ASP_5\DAL_ASP_5.csproj", "{291D129A-F23F-41ED-AA3C-F8A97C231271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL_Angular", "PL_Angular\PL_Angular.csproj", "{FC137B0C-0162-46E1-9790-F66B46EDFC12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +36,18 @@ Global
 		{8494B7A0-6480-48F2-B69E-42D15B309B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8494B7A0-6480-48F2-B69E-42D15B309B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8494B7A0-6480-48F2-B69E-42D15B309B47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC40C18E-5EC4-47CB-8CAE-721F014AAFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC40C18E-5EC4-47CB-8CAE-721F014AAFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC40C18E-5EC4-47CB-8CAE-721F014AAFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC40C18E-5EC4-47CB-8CAE-721F014AAFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291D129A-F23F-41ED-AA3C-F8A97C231271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291D129A-F23F-41ED-AA3C-F8A97C231271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291D129A-F23F-41ED-AA3C-F8A97C231271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291D129A-F23F-41ED-AA3C-F8A97C231271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
