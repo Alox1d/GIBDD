@@ -12,13 +12,13 @@
           </mat-form-field>
   
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Пароль" name="password" type="password" [(ngModel)]="user.password">
+            <input matInput placeholder="Пароль" name="pass" type="password" [(ngModel)]="user.password">
           </mat-form-field>
         </mat-card-content>
         <button mat-stroked-button color="accent" class="btn-block" (click)="submit(user)">Войти</button>
         <button mat-stroked-button color="accent" class="btn-block" (click)="logout()">Выйти</button>
       </form>
-      <input matInput name="error" [(ngModel)]="error">
+      <input matInput name="error" [(ngModel)]="msg">
     </mat-card>
   
   </div>

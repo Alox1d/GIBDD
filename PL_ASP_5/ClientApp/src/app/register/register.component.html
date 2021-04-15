@@ -13,11 +13,13 @@
           </mat-form-field>
   
           <mat-form-field class="example-full-width"  >
-            <input matInput placeholder="Пароль" name="password" [(ngModel)]="user.password">
+            <input matInput placeholder="Пароль" name="password" type="password" 
+             [(ngModel)]="user.password">
           </mat-form-field>
 
           <mat-form-field class="example-full-width"  >
-            <input matInput placeholder="Подтверждение пароля" name="passwordConfirm" [(ngModel)]="user.passwordConfirm">
+            <input matInput placeholder="Подтверждение пароля" name="passwordConfirm" type="password" 
+             [(ngModel)]="user.passwordConfirm">
           </mat-form-field>
   
           <!-- <mat-form-field class="example-full-width">
@@ -32,7 +34,7 @@
   
         <button mat-stroked-button color="accent" class="btn-block" (click)="submit(user)">Зарегистрироваться</button>
         
-        <input matInput name="error" [(ngModel)]="error" class="b">
+        <input matInput name="msg" [(ngModel)]="msg">
       </form>
     </mat-card>
   </div>
