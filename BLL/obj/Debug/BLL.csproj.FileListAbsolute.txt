@@ -116,3 +116,7 @@ C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конс�
 C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.csproj.CopyComplete
 C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.dll
 C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\BLL\obj\Debug\BLL.pdb
+D:\Projects\GIBDD\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+D:\Projects\GIBDD\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+D:\Projects\GIBDD\BLL\obj\Debug\BLL.dll
+D:\Projects\GIBDD\BLL\obj\Debug\BLL.pdb

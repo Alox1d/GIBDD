@@ -1,14 +1,11 @@
 ﻿using DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DAL
 {
-    public class GIBDDContext : DbContext
+    public partial class GIBDDContext : IdentityDbContext<Inspector>
     {
 
         public GIBDDContext(DbContextOptions options) : base(options)
@@ -27,6 +24,8 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<CarOwner>()
                 .HasOne(c => c.DriverLicense)
                 .WithOne(c => c.CarOwner);
