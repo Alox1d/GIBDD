@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">PL_Angular</a>
+      <a class="navbar-brand" [routerLink]="['/']">ГИБДД</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,17 +25,20 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a mat-button class="nav-link text-dark" [routerLink]="['/']">Главная</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
+            <!-- <a class="nav-link text-dark" [routerLink]="['/counter']"
+              >Регистрация</a
+            > -->
+            <a mat-button  class="nav-link text-dark" routerLink="login" routerLinkActive="active">Вход</a>
+
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
-            >
+            <a mat-button mat-raised-button  class="nav-link text-dark" routerLink="register" routerLinkActive="active">Регистрация</a>
+            <!-- <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
+              >Вход</a
+            > -->
           </li>
         </ul>
       </div>

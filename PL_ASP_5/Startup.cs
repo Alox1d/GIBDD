@@ -1,10 +1,13 @@
 ﻿using DAL;
+using DAL.Entities;
 using JavaScriptEngineSwitcher.ChakraCore;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -36,7 +39,6 @@ namespace PL_ASP_5
         {
             //services.AddMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddReact();
             //services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
             services.AddControllersWithViews();
 
@@ -53,12 +55,25 @@ namespace PL_ASP_5
             services.AddDbContext<GIBDDContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             //services.AddCors();
             //​ services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
+
+            services.AddIdentity<Inspector, IdentityRole>().AddEntityFrameworkStores<GIBDDContext>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.WithOrigins("https://localhost:44314")
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .AllowCredentials();
+                });
+            });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GIBDDContext context)
         {
-            //app.UseCors(opt => opt.WithOrigins("http://localhost:3000")
+            //app.UseCors(opt => opt.WithOrigins("https://localhost:3000")
             //.AllowAnyHeader()
             //.AllowAnyMethod());
             if (env.IsDevelopment())
@@ -71,7 +86,7 @@ namespace PL_ASP_5
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -87,10 +102,12 @@ namespace PL_ASP_5
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-            //app.UseReact(config => { });
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            //ContextInizializer.SeedData(context);
+            //ContextInizializer.SeedData(context); // Загрузка данных
+
+            app.UseCors("EnableCORS");
+
         }
     }
 }

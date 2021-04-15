@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj": {}
+    "D:\\Projects\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj": {
+    "D:\\Projects\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj",
+        "projectUniqueName": "D:\\Projects\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj",
         "projectName": "DAL_ASP_5",
-        "projectPath": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj",
+        "projectPath": "D:\\Projects\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj",
         "packagesPath": "C:\\Users\\Alox1d\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\DAL_ASP_5\\obj\\",
+        "outputPath": "D:\\Projects\\GIBDD\\DAL_ASP_5\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alox1d\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.3, )"
@@ -77,14 +81,14 @@
         }
       }
     },
-    "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj": {
+    "D:\\Projects\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj",
+        "projectUniqueName": "D:\\Projects\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj",
         "projectName": "PL_ASP_5",
-        "projectPath": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj",
+        "projectPath": "D:\\Projects\\GIBDD\\PL_ASP_5\\PL_ASP_5.csproj",
         "packagesPath": "C:\\Users\\Alox1d\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\PL_ASP_5\\obj\\",
+        "outputPath": "D:\\Projects\\GIBDD\\PL_ASP_5\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alox1d\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -101,8 +105,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj": {
-                "projectPath": "C:\\Users\\Alox1d\\YandexDisk\\Университет\\Дисциплины\\Конструирование инт. приложений\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj"
+              "D:\\Projects\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj": {
+                "projectPath": "D:\\Projects\\GIBDD\\DAL_ASP_5\\DAL_ASP_5.csproj"
               }
             }
           }

@@ -1,4 +1,6 @@
-﻿using DAL.Entities;
+﻿using DAL;
+using DAL.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class GIBDDContext : DbContext
+    public partial class GIBDDContext : IdentityDbContext<User>
     {
         public GIBDDContext(string connection)
     : base(connection)
@@ -29,7 +31,7 @@ namespace DAL
         public DbSet<Color> Colors { get; set; }
         public DbSet<VehicleOffense> VehicleOffenses { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DriverLicense>()
                 .HasOptional(c => c.CarOwner)

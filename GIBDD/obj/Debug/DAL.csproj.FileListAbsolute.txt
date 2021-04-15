@@ -86,3 +86,8 @@ C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конс�
 C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\GIBDD\bin\Debug\Virtuosity.dll
 C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\GIBDD\bin\Debug\PropertyChanged.xml
 C:\Users\Alox1d\YandexDisk\Университет\Дисциплины\Конструирование инт. приложений\GIBDD\GIBDD\bin\Debug\Virtuosity.xml
+D:\Projects\GIBDD\GIBDD\obj\Debug\DAL.csprojAssemblyReference.cache
+D:\Projects\GIBDD\GIBDD\obj\Debug\GIBDD.g.resources
+D:\Projects\GIBDD\GIBDD\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+D:\Projects\GIBDD\GIBDD\obj\Debug\GIBDD.exe
+D:\Projects\GIBDD\GIBDD\obj\Debug\GIBDD.pdb

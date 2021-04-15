@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
 
 a {
   color: #0366d6;
@@ -26,4 +26,10 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
 }
 .md-datepicker-button {
   display: none;
+}
+.login-wrapper mat-card-header {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-weight: 700;
 }
