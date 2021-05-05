@@ -5,8 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /* Angular material */
 import { AngularMaterialModule } from './angular-material.module';
@@ -21,15 +21,16 @@ import {
   MatDatepickerModule,
   MatNativeDateModule
 } from '@angular/material';
-import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { LogInComponent } from './components/log-in/log-in.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UserService } from './services/user/user.service';
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
+    VehicleComponent,
     DialogBoxComponent,
     LogInComponent,
     RegisterComponent,
@@ -52,16 +53,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatMomentDateModule,
     FlexLayoutModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: VehicleComponent, pathMatch: 'full' },
       { path: 'login', component: LogInComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'vehicles', component: VehicleComponent },
     ])
   ],
   entryComponents: [
     DialogBoxComponent
   ],
   providers: [
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    UserService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

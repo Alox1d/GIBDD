@@ -423,3 +423,6 @@ D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\PL_ASP_5.dll
 D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\ref\PL_ASP_5.dll
 D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\PL_ASP_5.pdb
 D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\PL_ASP_5.genruntimeconfig.cache
+D:\Projects\GIBDD\PL_ASP_5\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Projects\GIBDD\PL_ASP_5\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Projects\GIBDD\PL_ASP_5\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

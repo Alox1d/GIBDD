@@ -15,10 +15,10 @@ namespace PL_ASP_5.Controllers
     [Produces("application/json")]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<Inspector> _userManager;
-        private readonly SignInManager<Inspector> _signInManager; 
-        public AccountController(UserManager<Inspector> userManager,
-            SignInManager<Inspector> signInManager)
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager; 
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -31,17 +31,18 @@ namespace PL_ASP_5.Controllers
         {
             if (ModelState.IsValid)
             {
-                Inspector inspector = new Inspector { 
+                User user = new User { 
                     Email = model.Email, 
                     UserName = model.Email };
-                // Добавление нового сотрудника ДПС 
-                var result = await _userManager.CreateAsync(inspector, model.Password);
+                // Добавление нового пользователя
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "operator");
                     // установка куки 
-                    await _signInManager.SignInAsync(inspector, false);
+                    await _signInManager.SignInAsync(user, false);
                     var msg = new
-                    { message = "Добавлен новый сотрудник ДПС: " + inspector.UserName };
+                    { message = "Добавлен новый оператор: " + user.UserName };
                     return Ok(msg);
                 }
                 else
@@ -132,16 +133,26 @@ e.Errors.Select(er => er.ErrorMessage))
         //[ValidateAntiForgeryToken] 
         public async Task<IActionResult> LogisAuthenticatedOff()
         {
-            Inspector usr = await GetCurrentUserAsync();
+            User usr = await GetCurrentUserAsync();
+            var userName = usr == null ? "Noname" : usr.UserName;
             var message = usr == null ? "Вы Гость. Пожалуйста, выполните вход." : "Вы вошли как: " + usr.UserName;
+            string roleName = "guest";
+            if (usr != null)
+            {
+                var role = await _userManager.GetRolesAsync(usr);
+                roleName = role.FirstOrDefault();
+            } 
+
             var msg = new
             {
-                message
+                userName,
+                message,
+                roleName
             };
             return Ok(msg);
 
         }
-        private Task<Inspector> GetCurrentUserAsync() =>
+        private Task<User> GetCurrentUserAsync() =>
  _userManager.GetUserAsync(HttpContext.User);
 
     }

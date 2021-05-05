@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
-    public partial class GIBDDContext : IdentityDbContext<Inspector>
+    public partial class GIBDDContext : IdentityDbContext<User>
     {
 
         public GIBDDContext(DbContextOptions options) : base(options)

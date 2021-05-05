@@ -27,9 +27,3 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
 .md-datepicker-button {
   display: none;
 }
-.login-wrapper mat-card-header {
-  text-align: center;
-  width: 100%;
-  display: block;
-  font-weight: 700;
-}
