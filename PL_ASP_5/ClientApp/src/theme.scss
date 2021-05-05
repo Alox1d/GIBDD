@@ -30,7 +30,7 @@ $my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-cus
 //     border-color: #1861ac;
 //   }
   
-mat-header-cell, mat-cell {
+  td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
     padding-right: 100px !important;
   }
   
@@ -39,4 +39,10 @@ mat-header-cell, mat-cell {
   }
   .md-datepicker-button {
     display: none;
+    text-align: center;
   }
+  mat-header-cell, mat-cell {
+    justify-content: center;
+  }
+
+  .center { text-align: center }

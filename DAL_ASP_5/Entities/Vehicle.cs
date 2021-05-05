@@ -30,8 +30,6 @@ namespace DAL.Entities
         public string Name { get; set; }
         public List<Vehicle>? Vehicles { get; set; }
 
-
-
     }
 
     public class Color

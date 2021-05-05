@@ -53,10 +53,11 @@ namespace PL_ASP_5
             });
             //services.AddDbContext<GIBDDContext>(opt => opt.UseInMemoryDatabase("GIBDD"));
             services.AddDbContext<GIBDDContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-            //services.AddCors();
-            //​ services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
-
-            services.AddIdentity<Inspector, IdentityRole>().AddEntityFrameworkStores<GIBDDContext>();
+            services.AddControllers().AddNewtonsoftJson(options =>
+             {
+                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+             });
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<GIBDDContext>();
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCORS", builder =>
@@ -68,6 +69,25 @@ namespace PL_ASP_5
                 });
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            CreateUserRoles(services.BuildServiceProvider()).Wait();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "GIBDD"; 
+                options.LoginPath = "/"; 
+                options.AccessDeniedPath = "/"; 
+                options.LogoutPath = "/";
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,5 +129,48 @@ namespace PL_ASP_5
             app.UseCors("EnableCORS");
 
         }
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager =
+ serviceProvider.GetRequiredService<UserManager<User>>();
+
+            // Создание ролей сотрудника ДПС и оператора аналитического отдела 
+            if (await roleManager.FindByNameAsync("inspector") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("inspector"));
+            }
+            if (await roleManager.FindByNameAsync("operator") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("operator"));
+            }
+
+            // Создание сотрудника ДПС 
+            string insEmail = "inspector@mail.com";
+            string insPass = "Qwe123!";
+            if (await userManager.FindByNameAsync(insEmail) == null)
+            {
+                User inspector = new User { Email = insEmail, UserName = insEmail };
+                IdentityResult result = await userManager.CreateAsync(inspector, insPass);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(inspector, "inspector");
+                }
+            }
+
+            // Создание оператора 
+            string opEmail = "oper@mail.com";
+            string opPassword = "Qwe123!";
+            if (await userManager.FindByNameAsync(opEmail) == null)
+            {
+                User user = new User { Email = opEmail, UserName = opEmail };
+                IdentityResult result = await userManager.CreateAsync(user, opPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, "user");
+                }
+            }
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-log-in',
@@ -9,12 +10,23 @@ import { HttpClient } from '@angular/common/http';
 export class LogInComponent implements AfterContentInit {
 
   Roles: any = ['Admin', 'Author', 'Reader'];
+  user: User = new User(); // данные вводимого пользователя
 
-  constructor(public http: HttpClient, @Inject('BASE_URL') public baseUrl: string) {
+  done: boolean = false;
+  msg: string;
+  constructor(public http: HttpClient, @Inject('BASE_URL') public baseUrl: string, private userService: UserService) {
   }
 
   ngAfterContentInit(): void {
-    this.isAuth();
+    this.userService.isAuth();
+    this.userService.response.subscribe(
+      (data: any) => {
+        this.msg = data.message;
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
 
@@ -26,16 +38,16 @@ export class LogInComponent implements AfterContentInit {
     return this.http.post(this.baseUrl + 'api/Account/Login', body);
   }
 
-  user: User = new User(); // данные вводимого пользователя
 
-  done: boolean = false;
-  msg: string;
 
   submit(user: User) {
     this.postData(user)
       .subscribe(
         (data: any) => {
-          this.done = true; this.msg = data.message;
+          this.done = true;
+          this.msg = data.message;
+          this.userService.isAuth();
+
         },
         error => {
           console.log(error)
@@ -44,30 +56,20 @@ export class LogInComponent implements AfterContentInit {
   }
   logout() {
 
-
-    return this.http.post(this.baseUrl + 'api/Account/LogOff', "")
+    this.http.post(this.baseUrl + 'api/Account/LogOff', "")
       .subscribe(
         (data: any) => {
           this.msg = data.message;
+          this.userService.isAuth()
+
         },
         error => {
           console.log(error)
         }
       );
+    return
   }
-  isAuth() {
 
-
-    return this.http.post(this.baseUrl + 'api/Account/isAuthenticated', "")
-      .subscribe(
-        (data: any) => {
-          this.msg = data.message;
-        },
-        error => {
-          console.log(error)
-        }
-      );
-  }
 }
 
 class User {

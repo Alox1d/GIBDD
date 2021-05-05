@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GIBDD\DAL.csproj">
-      <Project>{015e3ed0-0d70-47b6-a790-25716e30876e}</Project>
-      <Name>DAL</Name>
+    <ProjectReference Include="..\DAL_ASP_5\DAL_ASP_5.csproj">
+      <Project>{291d129a-f23f-41ed-aa3c-f8a97c231271}</Project>
+      <Name>DAL_ASP_5</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
