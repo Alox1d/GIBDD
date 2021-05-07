@@ -46,3 +46,45 @@ $my-custom-theme: mat-light-theme($my-custom-primary, $my-custom-accent, $my-cus
   }
 
   .center { text-align: center }
+
+  .wrap {
+    padding: 20px;
+    float: left;
+    border:1px solid #aaa;
+}
+// By default, the mobile label shouldn't show
+.mobile-label {
+  display: none;
+}
+
+@media(max-width: 800px) {
+  // Custom header label that shows in each column, with a set width and bold font
+  .mobile-label {
+    width: 80px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  // Remove the header row altogether
+  .mat-header-row {
+    display: none;
+  }
+
+  // The row cells should display as a column, justified left, with a bit of extra padding
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+    min-height: unset; // Tweak for Angular Material 8
+  }
+
+  // Tweaks for Angular Material 8
+  .mat-cell:first-of-type, .mat-footer-cell:first-of-type, .mat-header-cell:first-of-type {
+    padding-left: unset;
+  }
+
+  .mat-cell {
+    align-items: unset;
+    min-height: unset;
+  }
+}

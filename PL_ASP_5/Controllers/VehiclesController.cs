@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace PL_ASP_5.Controllers
 {
@@ -26,7 +27,12 @@ namespace PL_ASP_5.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
         {
-            return await _context.Vehicles.Include(c => c.Color).ToListAsync();
+            return await _context.Vehicles
+                .Include(c =>c.Color)
+                .Include(m => m.Model)
+                .Include(c => c.Category)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Vehicles/5
@@ -54,7 +60,17 @@ namespace PL_ASP_5.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(vehicle).State = EntityState.Modified;
+            _context.Update(vehicle);
+
+            //_context.Entry(vehicle).State = EntityState.Modified;
+
+
+            //IEnumerable<EntityEntry> unchangedEntities = _context.ChangeTracker.Entries().Where(x => x.State == EntityState.Unchanged);
+
+            //foreach (EntityEntry ee in unchangedEntities)
+            //{
+            //    ee.State = EntityState.Modified;
+            //}
 
             try
             {

@@ -37,5 +37,15 @@ namespace DAL
 
 
         }
+        public void UpdateProperties( object target, object source)
+        {
+            foreach (var propertyEntry in this.Entry(target).Properties)
+            {
+                var property = propertyEntry.Metadata;
+                // Skip shadow and key properties
+                if (property.IsShadowProperty() || (propertyEntry.EntityEntry.IsKeySet && property.IsKey())) continue;
+                propertyEntry.CurrentValue = property.GetGetter().GetClrValue(source);
+            }
+        }
     }
 }

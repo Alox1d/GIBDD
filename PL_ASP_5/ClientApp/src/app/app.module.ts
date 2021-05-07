@@ -21,11 +21,15 @@ import {
   MatDatepickerModule,
   MatNativeDateModule
 } from '@angular/material';
-import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { DialogBoxComponent } from './components/vehicle/dialog-box/dialog-box.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserService } from './services/user/user.service';
+import { NameEditDialogComponent } from './components/dictionary/dialog-edit/dialog/color-dialog.component';
+import { DictionaryComponent } from './components/dictionary/dialog-edit/color-dialog.component';
+import { CarownerComponent } from './components/carowner/carowner.component';
+import { DialogCarOwnerComponent } from './components/carowner/dialog/dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +38,10 @@ import { UserService } from './services/user/user.service';
     DialogBoxComponent,
     LogInComponent,
     RegisterComponent,
+    DictionaryComponent,
+    NameEditDialogComponent,
+    CarownerComponent,
+    DialogCarOwnerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,14 +61,19 @@ import { UserService } from './services/user/user.service';
     MatMomentDateModule,
     FlexLayoutModule,
     RouterModule.forRoot([
-      { path: '', component: VehicleComponent, pathMatch: 'full' },
+      { path: 'carowners', component: CarownerComponent, pathMatch: 'full' },
+      { path: 'vehicles', component: VehicleComponent, pathMatch: 'full' },
+      { path: '', redirectTo:'vehicles',pathMatch: 'full' },
       { path: 'login', component: LogInComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'vehicles', component: VehicleComponent },
     ])
   ],
   entryComponents: [
-    DialogBoxComponent
+    DialogBoxComponent,
+    DictionaryComponent,
+    NameEditDialogComponent,
+    DialogCarOwnerComponent
   ],
   providers: [
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },

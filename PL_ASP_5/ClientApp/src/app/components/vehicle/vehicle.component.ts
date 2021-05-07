@@ -1,18 +1,26 @@
 import { Component, ViewChild, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatTable } from '@angular/material';
-import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/user/user.service';
-export interface UsersData {
-  name: string;
+
+export interface Vehicle {
   id: number;
+  registrationNumber: string;
+  color: string;
+  model: string;
+  category: string;
+  maintenanceDate: Date;
+  maintenanceSuccess: boolean;
 }
+
 @Component({
-  selector: 'app-home',
+  selector: 'none',
   templateUrl: './vehicle.component.html',
 })
+
 export class VehicleComponent implements OnInit {
-  displayedColumns: string[] = ['registrationNumber', "color", 'maintenanceDate', 'maintenanceSuccess'];
+  displayedColumns: string[] = ['registrationNumber', "color", "model", "category", 'maintenanceDate', 'maintenanceSuccess'];
   dataSource: any;
   public vehicle: Vehicle;
   isInspector = false;
@@ -66,6 +74,8 @@ export class VehicleComponent implements OnInit {
       id: newRow.id,
       registrationNumber: newRow.registrationNumber,
       color: newRow.color,
+      model: newRow.model,
+      category: newRow.category,
       maintenanceDate: new Date(newRow.maintenanceDate),
       maintenanceSuccess: newRow.maintenanceSuccess,
     };
@@ -86,6 +96,8 @@ export class VehicleComponent implements OnInit {
       if (value.id == newRow.id) {
         value.registrationNumber = newRow.registrationNumber;
         value.color = newRow.color,
+          value.model = newRow.model,
+          value.category = newRow.category,
         value.maintenanceDate = new Date(newRow.maintenanceDate);
         value.maintenanceSuccess = newRow.maintenanceSuccess;
       }
@@ -94,6 +106,8 @@ export class VehicleComponent implements OnInit {
         id: newRow.id,
         registrationNumber: newRow.registrationNumber,
         color: newRow.color,
+        model: newRow.model,
+        category: newRow.category,
         maintenanceDate: new Date(newRow.maintenanceDate),
         maintenanceSuccess: newRow.maintenanceSuccess,
       };
@@ -111,11 +125,4 @@ export class VehicleComponent implements OnInit {
       return value.id != newRow.id;
     });
   }
-}
-interface Vehicle {
-  id: number;
-  registrationNumber: string;
-  color: string;
-  maintenanceDate: Date;
-  maintenanceSuccess: boolean;
 }
