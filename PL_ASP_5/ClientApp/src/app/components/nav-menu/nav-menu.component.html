@@ -21,10 +21,19 @@
       >
         <ul class="navbar-nav flex-row justify-content-end">
           <li
+          class="nav-item"
+          [routerLinkActive]="['link-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+        <a mat-button  class="nav-link text-dark" routerLink="carowners" routerLinkActive="active">Автовладельцы</a>
+          <!-- <a mat-button class="nav-link text-dark" [routerLink]="['/']">Главная</a> -->
+        </li>
+          <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
+          <a mat-button  class="nav-link text-dark" routerLink="vehicles" routerLinkActive="active">ТС</a>
             <!-- <a mat-button class="nav-link text-dark" [routerLink]="['/']">Главная</a> -->
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
@@ -32,13 +41,11 @@
               >Регистрация</a
             > -->
             <a mat-button  class="nav-link text-dark" routerLink="login" routerLinkActive="active">{{loginTitle}}</a>
-
+ 
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a mat-button mat-raised-button  class="nav-link text-dark" routerLink="register" routerLinkActive="active">Регистрация</a>
-            <!-- <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Вход</a
-            > -->
+            <a mat-button mat-raised-button  class="nav-link text-dark" routerLink="register" routerLinkActive="active"
+            *ngIf="loginTitle == 'Вход'">Регистрация</a>
           </li>
         </ul>
       </div>

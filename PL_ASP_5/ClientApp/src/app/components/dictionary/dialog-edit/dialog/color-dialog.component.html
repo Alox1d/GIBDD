@@ -1,0 +1,17 @@
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+
+
+<div mat-dialog-content>
+    <mat-form-field *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Наименование" matInput [(ngModel)]="local_data.name">
+    </mat-form-field>
+
+    <div *ngIf="action == 'Удалить'">Вы точно хотите удалить "{{local_data.name}}"?</div>
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Отмена</button>
+</div>

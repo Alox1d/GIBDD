@@ -1,7 +1,7 @@
 <button mat-button (click)="openDialog('Добавить',{})" mat-flat-button color="primary"
 *ngIf="isInspector">
-  Добавить транспортное средство</button>
-  <mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8" >
+  Зарегистрировать транспортное средство</button>
+  <mat-table fxLayout="column wrap" [dataSource]="dataSource" #mytable class="mat-elevation-z8" >
     <ng-container matColumnDef="registrationNumber">
       <mat-header-cell *matHeaderCellDef> Номер гос. регистрации </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.registrationNumber}} </mat-cell>
@@ -10,7 +10,14 @@
       <mat-header-cell *matHeaderCellDef> Цвет </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.color.name}} </mat-cell>
     </ng-container>
-
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef> Модель </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.model.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Категория </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.category.name}} </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="maintenanceDate">
       <mat-header-cell *matHeaderCellDef> Дата тех. обслуживания </mat-header-cell>
       <mat-cell *matCellDef="let element">
@@ -35,9 +42,10 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>
       <mat-cell *matCellDef="let element" class="action-link">
-        <a (click)="openDialog('Обновить',element)">Редактировать</a> 
-        <div *ngIf="isInspector">|</div>
-        <a (click)="openDialog('Удалить',element)" *ngIf="isInspector">Удалить</a>
+        <div style="text-align: center">
+        <button mat-button (click)="openDialog('Обновить',element)" >Изменить</button>
+        <button  mat-button (click)="openDialog('Удалить',element)" *ngIf="isInspector">Удалить</button>
+      </div>
       </mat-cell>
     </ng-container>
 

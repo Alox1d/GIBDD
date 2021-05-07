@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { MatDialog, MatTable } from '@angular/material';
-import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { DialogBoxComponent } from './components/vehicle/dialog-box/dialog-box.component';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

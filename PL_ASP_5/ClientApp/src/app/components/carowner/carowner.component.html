@@ -1,0 +1,29 @@
+<button mat-button (click)="openDialog('Добавить',{})" mat-flat-button color="primary"
+>
+  Добавить автовладельца</button>
+  <mat-table [(dataSource)]="dataSource" #mytable class="my-table mat-elevation-z8" >
+    <ng-container matColumnDef="fio">
+      <mat-header-cell *matHeaderCellDef> ФИО </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fio}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="passportData">
+        <mat-header-cell *matHeaderCellDef> Паспортные данные </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.passportData}} </mat-cell>
+      </ng-container>
+
+
+
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="action-link">
+        <div style="text-align: center">
+        <button mat-button (click)="openDialog('Обновить',element)" >Изменить</button>
+        <button  mat-button (click)="openDialog('Удалить',element)" >Удалить</button>
+      </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

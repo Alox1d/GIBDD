@@ -1,0 +1,62 @@
+<h1 mat-dialog-title><strong>{{action}} транспортное средство</strong></h1>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="action != 'Удалить'; else elseTemplate">
+    <input placeholder="Номер гос. регистрации" matInput [(ngModel)]="local_data.registrationNumber">
+  </mat-form-field>
+  <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+      <input matInput  [matDatepicker]="picker1" [(ngModel)]="local_data.maintenanceDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker  #picker1></mat-datepicker>
+  </mat-form-field>
+  <div mat-dialog-content fxLayout="row" fxLayoutAlign="space-between none" > 
+  <mat-form-field style="width: 70%" *ngIf="action != 'Удалить'; else elseTemplate">
+    
+    <mat-label>Модель</mat-label>
+    <mat-select [compareWith]="compareFn" [(ngModel)]="local_data.model" (ngModelChange)="onDropdownChange($event)">
+      <mat-option *ngFor="let model of models" [(value)]="model">
+        {{model.name}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<button mat-button mat-raised-button color="primary" (click)="openModels()"
+style="margin-top: 1rem;margin-bottom: 1rem;">+</button>
+
+</div>
+<div mat-dialog-content fxLayout="row" fxLayoutAlign="space-between none" > 
+  <mat-form-field style="width: 70%" *ngIf="action != 'Удалить'; else elseTemplate">
+    
+    <mat-label>Категория</mat-label>
+    <mat-select [compareWith]="compareFn" [(ngModel)]="local_data.category" (ngModelChange)="onDropdownChange($event)">
+      <mat-option *ngFor="let category of categories" [(value)]="category">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+
+</mat-form-field>
+<button mat-button mat-raised-button color="primary" (click)="openCategories()"
+style="margin-top: 1rem;margin-bottom: 1rem;">+</button>
+
+</div>
+<div mat-dialog-content fxLayout="row" fxLayoutAlign="space-between none" > 
+  <mat-form-field style="width: 70%" *ngIf="action != 'Удалить'; else elseTemplate">
+    
+    <mat-label>Цвет</mat-label>
+    <mat-select [compareWith]="compareFn" [(ngModel)]="local_data.color" (ngModelChange)="onDropdownChange($event)">
+      <mat-option *ngFor="let color of colors" [(value)]="color">
+        {{color.name}}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+<button mat-button mat-raised-button color="primary" (click)="openColors()"
+style="margin-top: 1rem;margin-bottom: 1rem;">+</button>
+
+</div>
+
+    <mat-checkbox *ngIf="action != 'Удалить'; else elseTemplate" [(ngModel)]="local_data.maintenanceSuccess">Актуальность ТО</mat-checkbox>
+  <div *ngIf="action == 'Удалить'">Вы точно хотите удалить "{{local_data.registrationNumber}}"?</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Отмена</button>
+</div>
