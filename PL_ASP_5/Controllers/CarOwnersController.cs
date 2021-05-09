@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PL_ASP_5.Controllers
 {
@@ -25,7 +26,10 @@ namespace PL_ASP_5.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CarOwner>>> GetCarOwners()
         {
-            return await _context.CarOwners.ToListAsync();
+            return await _context.CarOwners
+                .Include(p => p.Vehicles)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/CarOwners/5
@@ -41,6 +45,7 @@ namespace PL_ASP_5.Controllers
 
             return carOwner;
         }
+        [Authorize(Roles = "inspector")]
 
         // PUT: api/CarOwners/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -51,9 +56,16 @@ namespace PL_ASP_5.Controllers
             {
                 return BadRequest();
             }
+            //_context.Entry(carOwner).State = EntityState.Modified;
+            _context.CarOwners.Update(carOwner);
+            //carOwner.Vehicles.
+            //_context.Vehicles.All
+            var deleteList = _context.Vehicles.Where(t => !carOwner.Vehicles.Contains(t) && t.CarOwner != null).ToList();
 
-            _context.Entry(carOwner).State = EntityState.Modified;
-
+            foreach (var d in deleteList)
+            {
+                _context.Vehicles.Where(s => s.Id == d.Id).First().CarOwner = null;
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -72,29 +84,34 @@ namespace PL_ASP_5.Controllers
 
             return NoContent();
         }
+        [Authorize(Roles = "inspector")]
 
         // POST: api/CarOwners
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<CarOwner>> PostCarOwner(CarOwner carOwner)
         {
-            _context.CarOwners.Add(carOwner);
+            _context.Update(carOwner);
             await _context.SaveChangesAsync();
+            //_context.CarOwners.Update(carOwner);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCarOwner", new { id = carOwner.Id }, carOwner);
         }
+        [Authorize(Roles = "inspector")]
 
         // DELETE: api/CarOwners/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCarOwner(int id)
         {
-            var carOwner = await _context.CarOwners.FindAsync(id);
+            var carOwner = await _context.CarOwners.FindAsync(id)
+                ;
             if (carOwner == null)
             {
                 return NotFound();
             }
-
-            _context.CarOwners.Remove(carOwner);
+            _context.CarOwners.Where(i => i.Id == id).Load();
+            _context.Remove(carOwner);
             await _context.SaveChangesAsync();
 
             return NoContent();

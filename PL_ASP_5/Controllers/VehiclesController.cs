@@ -9,6 +9,7 @@ using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using BLL.Services;
 
 namespace PL_ASP_5.Controllers
 {
@@ -17,12 +18,23 @@ namespace PL_ASP_5.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly GIBDDContext _context;
+        private MaintenanceService _maintenanceService;
 
-        public VehiclesController(GIBDDContext context)
+        public VehiclesController(GIBDDContext context, MaintenanceService maintenanceService)
         {
             _context = context;
+            _maintenanceService = maintenanceService;
         }
+        [HttpGet]
+        [Route("MaintenanceCheck")]
+        public int GetMaintenanceCheck()
+        {
+            int count = _maintenanceService
+                .CheckMaintenance(_context.Vehicles.ToList());
+            _context.SaveChanges();
 
+            return count;
+        }
         // GET: api/Vehicles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
@@ -31,6 +43,9 @@ namespace PL_ASP_5.Controllers
                 .Include(c =>c.Color)
                 .Include(m => m.Model)
                 .Include(c => c.Category)
+                .Include(a=>a.CarOwner)
+                    .ThenInclude(s=>s.DriverLicense)
+                        .ThenInclude(s=>s.TakeStrokes)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -97,7 +112,9 @@ namespace PL_ASP_5.Controllers
         [HttpPost]
         public async Task<ActionResult<Vehicle>> PostVehicle(Vehicle vehicle)
         {
-            _context.Vehicles.Add(vehicle);
+            //_context.Vehicles.Add(vehicle);
+            _context.Update(vehicle);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetVehicle", new { id = vehicle.Id }, vehicle);

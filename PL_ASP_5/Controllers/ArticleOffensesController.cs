@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PL_ASP_5.Controllers
 {
@@ -25,7 +26,9 @@ namespace PL_ASP_5.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ArticleOffense>>> GetArticleOffenses()
         {
-            return await _context.ArticleOffenses.ToListAsync();
+            return await _context.ArticleOffenses
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/ArticleOffenses/5
@@ -41,6 +44,7 @@ namespace PL_ASP_5.Controllers
 
             return articleOffense;
         }
+        [Authorize(Roles = "inspector")]
 
         // PUT: api/ArticleOffenses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -72,6 +76,7 @@ namespace PL_ASP_5.Controllers
 
             return NoContent();
         }
+        [Authorize(Roles = "inspector")]
 
         // POST: api/ArticleOffenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -83,6 +88,7 @@ namespace PL_ASP_5.Controllers
 
             return CreatedAtAction("GetArticleOffense", new { id = articleOffense.Id }, articleOffense);
         }
+        [Authorize(Roles = "inspector")]
 
         // DELETE: api/ArticleOffenses/5
         [HttpDelete("{id}")]

@@ -19,7 +19,8 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MAT_DATE_LOCALE
 } from '@angular/material';
 import { DialogBoxComponent } from './components/vehicle/dialog-box/dialog-box.component';
 import { LogInComponent } from './components/log-in/log-in.component';
@@ -30,6 +31,13 @@ import { NameEditDialogComponent } from './components/dictionary/dialog-edit/dia
 import { DictionaryComponent } from './components/dictionary/dialog-edit/color-dialog.component';
 import { CarownerComponent } from './components/carowner/carowner.component';
 import { DialogCarOwnerComponent } from './components/carowner/dialog/dialog.component';
+import { OffensesComponent } from './components/offenses/offenses.component';
+import { OffensesDialogComponent } from './components/offenses/offenses-dialog/offenses-dialog.component';
+import {  ArticlesDialogComponent } from './components/offenses/articles-dialog/articles-dialog.component';
+import { ArticlesEditDialogComponent } from './components/offenses/articles-dialog/edit/articles-dialog.component';
+import { DriverLicensesComponent } from './components/driver-licenses/driver-licenses.component';
+import { LicenseDialogComponent } from './components/driver-licenses/license-dialog/license-dialog.component';
+import { OffensesReportComponent } from './components/offenses-report/offenses-report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +49,14 @@ import { DialogCarOwnerComponent } from './components/carowner/dialog/dialog.com
     DictionaryComponent,
     NameEditDialogComponent,
     CarownerComponent,
-    DialogCarOwnerComponent
+    DialogCarOwnerComponent,
+    OffensesComponent,
+    OffensesDialogComponent,
+    ArticlesEditDialogComponent,
+    ArticlesDialogComponent,
+    DriverLicensesComponent,
+    LicenseDialogComponent,
+    OffensesReportComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -62,21 +77,28 @@ import { DialogCarOwnerComponent } from './components/carowner/dialog/dialog.com
     FlexLayoutModule,
     RouterModule.forRoot([
       { path: 'carowners', component: CarownerComponent, pathMatch: 'full' },
+      { path: 'offensesReport', component: OffensesReportComponent, pathMatch: 'full' },
+      { path: 'offenses', component: OffensesComponent},
+      { path: 'driverLicenses', component: DriverLicensesComponent},
       { path: 'vehicles', component: VehicleComponent, pathMatch: 'full' },
       { path: '', redirectTo:'vehicles',pathMatch: 'full' },
       { path: 'login', component: LogInComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'vehicles', component: VehicleComponent },
     ])
   ],
   entryComponents: [
     DialogBoxComponent,
     DictionaryComponent,
     NameEditDialogComponent,
-    DialogCarOwnerComponent
+    DialogCarOwnerComponent,
+    OffensesDialogComponent,
+    ArticlesEditDialogComponent,
+    ArticlesDialogComponent,
+    LicenseDialogComponent
   ],
   providers: [
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    {provide: MAT_DATE_LOCALE, useValue: 'ru'},
     UserService
   ],
   bootstrap: [AppComponent],

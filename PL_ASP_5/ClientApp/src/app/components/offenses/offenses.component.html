@@ -1,0 +1,33 @@
+<button *ngIf="isInspector" mat-button (click)="openDialog('Добавить',{})" mat-flat-button color="primary">
+    Оформить правонарушение</button>
+<mat-table [(dataSource)]="dataSource" #mytable class="my-table mat-elevation-z8">
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> Адрес происшествия </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Дата </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.date | date}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sum">
+        <mat-header-cell *matHeaderCellDef> Сумма штрафа </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.sumPenalty}} </mat-cell>
+
+
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-link">
+            <div style="text-align: center">
+                <button mat-button (click)="openDialog('Обновить',element)">Изменить</button>
+                <button mat-button (click)="openDialog('Удалить',element)">Удалить</button>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

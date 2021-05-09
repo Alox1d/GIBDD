@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PL_ASP_5.Controllers
 {
@@ -25,7 +26,9 @@ namespace PL_ASP_5.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Model>>> GetModels()
         {
-            return await _context.Models.ToListAsync();
+            return await _context.Models
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Models/5
@@ -41,6 +44,7 @@ namespace PL_ASP_5.Controllers
 
             return model;
         }
+        [Authorize(Roles = "inspector")]
 
         // PUT: api/Models/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -72,6 +76,7 @@ namespace PL_ASP_5.Controllers
 
             return NoContent();
         }
+        [Authorize(Roles = "inspector")]
 
         // POST: api/Models
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -83,6 +88,7 @@ namespace PL_ASP_5.Controllers
 
             return CreatedAtAction("GetModel", new { id = model.Id }, model);
         }
+        [Authorize(Roles = "inspector")]
 
         // DELETE: api/Models/5
         [HttpDelete("{id}")]

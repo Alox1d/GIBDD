@@ -3,6 +3,7 @@ import { MatDialog, MatTable } from '@angular/material';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/user/user.service';
+import { mergeMap } from 'rxjs/internal/operators/mergeMap';
 
 export interface Vehicle {
   id: number;
@@ -23,7 +24,9 @@ export class VehicleComponent implements OnInit {
   displayedColumns: string[] = ['registrationNumber', "color", "model", "category", 'maintenanceDate', 'maintenanceSuccess'];
   dataSource: any;
   public vehicle: Vehicle;
-  isInspector = false;
+
+  maintCount:number;
+  maintCountStr:string;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
   constructor(public dialog: MatDialog, public http: HttpClient, @Inject('BASE_URL') public baseUrl: string,  private userService : UserService) {
@@ -32,6 +35,7 @@ export class VehicleComponent implements OnInit {
     }, error => console.error(error));
 
   }
+  isInspector = false;
   ngOnInit(): void {
     this.userService.isAuth().subscribe(
       (data: any) => {
@@ -124,5 +128,24 @@ export class VehicleComponent implements OnInit {
       })
       return value.id != newRow.id;
     });
+  }
+  checkMaint(){
+    this.http.get(this.baseUrl + 'api/Vehicles/MaintenanceCheck')
+    .pipe(mergeMap(async (result) => 
+    {
+      this.maintCount = result as number;
+      this.maintCountStr = "Новых неактуальных: " + this.maintCount.toString();
+    this.get();
+    }
+
+    ))
+    .subscribe((result) => {
+      console.error(result)
+    }, error => console.error(error));
+  }
+  private get() {
+    this.http.get(this.baseUrl + 'api/' + "Vehicles/").subscribe(result => {
+      this.dataSource = result;
+    }, error => console.error(error));
   }
 }

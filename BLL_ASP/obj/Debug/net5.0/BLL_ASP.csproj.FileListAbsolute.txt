@@ -1,0 +1,16 @@
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.csprojAssemblyReference.cache
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.AssemblyInfoInputs.cache
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.AssemblyInfo.cs
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.csproj.CoreCompileInputs.cache
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\DAL_ASP_5.exe
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\BLL_ASP.deps.json
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\BLL_ASP.dll
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\ref\BLL_ASP.dll
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\BLL_ASP.pdb
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\DAL_ASP_5.dll
+D:\Projects\GIBDD\BLL_ASP\bin\Debug\net5.0\DAL_ASP_5.pdb
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.csproj.CopyComplete
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.dll
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\ref\BLL_ASP.dll
+D:\Projects\GIBDD\BLL_ASP\obj\Debug\net5.0\BLL_ASP.pdb

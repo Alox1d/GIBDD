@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PL_ASP_5.Controllers
 {
@@ -41,6 +42,7 @@ namespace PL_ASP_5.Controllers
 
             return carDriver;
         }
+        [Authorize(Roles = "inspector")]
 
         // PUT: api/CarDrivers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -72,6 +74,7 @@ namespace PL_ASP_5.Controllers
 
             return NoContent();
         }
+        [Authorize(Roles = "inspector")]
 
         // POST: api/CarDrivers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -83,6 +86,7 @@ namespace PL_ASP_5.Controllers
 
             return CreatedAtAction("GetCarDriver", new { id = carDriver.Id }, carDriver);
         }
+        [Authorize(Roles = "inspector")]
 
         // DELETE: api/CarDrivers/5
         [HttpDelete("{id}")]

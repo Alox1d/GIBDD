@@ -16,7 +16,7 @@ namespace DAL_ASP_5.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CategoryDriverLicense", b =>
@@ -214,7 +214,7 @@ namespace DAL_ASP_5.Migrations
 
                     b.HasIndex("DriverLicenseId");
 
-                    b.ToTable("TakeStroke");
+                    b.ToTable("TakeStrokes");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -524,7 +524,7 @@ namespace DAL_ASP_5.Migrations
                     b.HasOne("DAL.Entities.CarOwner", "CarOwner")
                         .WithOne("DriverLicense")
                         .HasForeignKey("DAL.Entities.DriverLicense", "CarOwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("CarOwner");
@@ -552,7 +552,8 @@ namespace DAL_ASP_5.Migrations
                 {
                     b.HasOne("DAL.Entities.CarOwner", "CarOwner")
                         .WithMany("Vehicles")
-                        .HasForeignKey("CarOwnerId");
+                        .HasForeignKey("CarOwnerId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("DAL.Entities.Category", "Category")
                         .WithMany("Vehicles")

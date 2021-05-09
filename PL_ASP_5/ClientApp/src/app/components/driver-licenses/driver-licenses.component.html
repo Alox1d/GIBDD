@@ -1,0 +1,46 @@
+<div *ngIf="isInspector" fxLayout="row" fxLayoutAlign="start">
+    <button style="width: 35%; margin-right: 1rem;" mat-button (click)="openDialog('Добавить',{})" mat-flat-button
+        color="primary" *ngIf="isInspector">
+        Добавить удостоверение</button>
+    <button style="width: 15%;margin-right: 1rem;" mat-button (click)="licenseCheck()" mat-flat-button color="primary"
+        *ngIf="isInspector">
+        Проверка прав</button>
+    <input style="width: 25%;" readonly matInput [(ngModel)]="licenseCountStr">
+
+</div>
+<mat-table [(dataSource)]="dataSource" #mytable class="my-table mat-elevation-z8">
+    <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef> Серия и номер </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="carOwner">
+        <mat-header-cell *matHeaderCellDef> Владелец </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.carOwner.fio}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="releaseDate">
+        <mat-header-cell *matHeaderCellDef> Дата выдачи </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.releaseDate | date}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="isInvalid">
+        <mat-header-cell *matHeaderCellDef> Изъято </mat-header-cell>
+
+        <mat-cell *matCellDef="let element">
+            <mat-checkbox class="example-margin" [(ngModel)]="element.isInvalid" (click)="$event.preventDefault()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-link">
+            <div style="text-align: center">
+                <button mat-button (click)="openDialog('Обновить',element)">Изменить</button>
+                <button mat-button (click)="openDialog('Удалить',element)">Удалить</button>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

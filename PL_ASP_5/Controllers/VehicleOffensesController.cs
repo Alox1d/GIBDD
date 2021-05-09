@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PL_ASP_5.Controllers
 {
@@ -25,7 +26,9 @@ namespace PL_ASP_5.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VehicleOffense>>> GetVehicleOffenses()
         {
-            return await _context.VehicleOffenses.ToListAsync();
+            return await _context.VehicleOffenses
+                .Include(s=>s.ArticleOffense)
+                .ToListAsync();
         }
 
         // GET: api/VehicleOffenses/5
@@ -41,6 +44,7 @@ namespace PL_ASP_5.Controllers
 
             return vehicleOffense;
         }
+        [Authorize(Roles = "inspector")]
 
         // PUT: api/VehicleOffenses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -72,6 +76,7 @@ namespace PL_ASP_5.Controllers
 
             return NoContent();
         }
+        [Authorize(Roles = "inspector")]
 
         // POST: api/VehicleOffenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -83,6 +88,7 @@ namespace PL_ASP_5.Controllers
 
             return CreatedAtAction("GetVehicleOffense", new { id = vehicleOffense.Id }, vehicleOffense);
         }
+        [Authorize(Roles = "inspector")]
 
         // DELETE: api/VehicleOffenses/5
         [HttpDelete("{id}")]

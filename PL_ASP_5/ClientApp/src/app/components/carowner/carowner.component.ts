@@ -3,6 +3,7 @@ import { MatDialog, MatTable, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { mergeMap } from 'rxjs/operators';
 import { DialogCarOwnerComponent } from './dialog/dialog.component';
+import { UserService } from 'src/app/services/user/user.service';
 
 export class CarOwner {
   fio: string;
@@ -23,7 +24,7 @@ export class CarOwner {
 export class CarownerComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['fio','passportData', 'action'];
+  displayedColumns: string[] = ['fio','passportData','vehicles'];
   public entity: any;
 
   dataSource: any;
@@ -34,6 +35,7 @@ export class CarownerComponent implements OnInit {
     public dialog: MatDialog,
     public http: HttpClient,
     @Inject('BASE_URL') public baseUrl: string,
+    public userService:UserService
   ) {
     this.api = "CarOwners";
     this.get();
@@ -44,8 +46,24 @@ export class CarownerComponent implements OnInit {
     }, error => console.error(error));
   }
 
+  isInspector = false;
   ngOnInit(): void {
+    this.userService.isAuth().subscribe(
+      (data: any) => {
+        if (data.roleName == "inspector"){
+          this.isInspector = true;
+          if (!this.displayedColumns.includes('action'))
+          this.displayedColumns.push('action');
 
+        } else {
+          this.isInspector = false;
+
+        };
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   openDialog(action, obj) {
@@ -67,12 +85,9 @@ export class CarownerComponent implements OnInit {
   }
 
   addRowData(newRow) {
-    // this.entity = {
-    //   id: newRow.id,
-    //   name: newRow.name,
-    // };
-    this.entity = new CarOwner(newRow);
-    this.dataSource.push(this.entity);
+
+    // this.entity = new CarOwner(newRow);
+    // this.dataSource.push(this.entity);
 
     // this.dataSource.push({
     //   id: newRow.id,
@@ -84,7 +99,7 @@ export class CarownerComponent implements OnInit {
     //   name: newRow.name,
     // };
     const headers = { 'content-type': 'application/json' }
-    const body = JSON.stringify(this.entity);
+    const body = JSON.stringify(newRow);
     this.http.post(this.baseUrl + 'api/' + this.api, body, { 'headers': headers })
       .pipe(mergeMap(async () => this.get()))
       .subscribe(data => {
@@ -98,13 +113,9 @@ export class CarownerComponent implements OnInit {
       if (value.id == newRow.id) {
         //newRow.update(value)
       }
-
-      // this.entity = {
-      //   id: newRow.id,
-      //   name: newRow.name,
-      // };
       const headers = { 'content-type': 'application/json' }
-      const body = JSON.stringify(new CarOwner(newRow));
+      // const body = JSON.stringify(new CarOwner(newRow));
+      const body = JSON.stringify(newRow);
       this.http.put(this.baseUrl + 'api/' + this.api + '/' + newRow.id, body, { 'headers': headers })
         .pipe(mergeMap(async () => this.get()))
         .subscribe(data => {
