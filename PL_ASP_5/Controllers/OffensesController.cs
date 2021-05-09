@@ -10,6 +10,7 @@ using DAL.Entities;
 using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Bll.Models.ReportsModel;
+using Microsoft.Extensions.Logging;
 
 namespace PL_ASP_5.Controllers
 {
@@ -19,12 +20,15 @@ namespace PL_ASP_5.Controllers
     {
         private readonly GIBDDContext _context;
         private OffenseService _offenseService;
+        private readonly ILogger<OffensesController> _logger;
         private ReportsService _reportsService;
         public OffensesController(GIBDDContext context, 
             OffenseService offenseService,
-            ReportsService reportsService
+            ReportsService reportsService, ILogger<OffensesController> logger
             )
         {
+            _logger = logger;
+
             _context = context;
             _offenseService = offenseService;
             _reportsService = reportsService; 
@@ -98,7 +102,7 @@ namespace PL_ASP_5.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!OffenseExists(id))
                 {
@@ -106,6 +110,8 @@ namespace PL_ASP_5.Controllers
                 }
                 else
                 {
+                    _logger.LogError(e.ToString());
+
                     throw;
                 }
             }

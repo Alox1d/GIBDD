@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace PL_ASP_5.Controllers
 {
@@ -16,10 +17,13 @@ namespace PL_ASP_5.Controllers
     public class ColorsController : ControllerBase
     {
         private readonly GIBDDContext _context;
+        private readonly ILogger<ColorsController> _logger;
 
-        public ColorsController(GIBDDContext context)
+        public ColorsController(GIBDDContext context, ILogger<ColorsController> logger)
         {
             _context = context;
+            _logger = logger;
+
         }
 
         // GET: api/Colors
@@ -63,7 +67,7 @@ namespace PL_ASP_5.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!ColorExists(id))
                 {
@@ -71,6 +75,8 @@ namespace PL_ASP_5.Controllers
                 }
                 else
                 {
+                    _logger.LogError(e.ToString());
+
                     throw;
                 }
             }

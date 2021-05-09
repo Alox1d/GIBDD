@@ -42,6 +42,7 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.5",
           "Microsoft.Extensions.Caching.SqlServer": "5.0.1",
+          "Microsoft.Extensions.Logging": "5.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2",
           "Swashbuckle.AspNetCore": "6.1.4",
           "Webpack": "4.0.0",

@@ -402,3 +402,4 @@ D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\PL_ASP_5.pdb
 D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\PL_ASP_5.genruntimeconfig.cache
 D:\Projects\GIBDD\PL_ASP_5\bin\Debug\net5.0\BLL_ASP.dll
 D:\Projects\GIBDD\PL_ASP_5\bin\Debug\net5.0\BLL_ASP.pdb
+D:\Projects\GIBDD\PL_ASP_5\obj\Debug\net5.0\PL_ASP_5.MvcApplicationPartsAssemblyInfo.cs
