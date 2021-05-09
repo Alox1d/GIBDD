@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
-import { MatDialog, MatTable, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MatTable, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { NameEditDialogComponent } from '../../dictionary/dialog-edit/dialog/color-dialog.component';
 import { mergeMap } from 'rxjs/operators';
@@ -22,17 +22,22 @@ export class DictionaryComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'action'];
   dataSource: any;
+  local_data: any;
   public entity: Dictionary;
   api: string;
+  pickable: boolean;
   @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
   constructor(
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<DictionaryComponent>,
     public http: HttpClient,
     @Inject('BASE_URL') public baseUrl: string,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: string,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.api = data;
+    this.local_data = {...data};
+    this.api = this.local_data.api;
+    this.pickable = this.local_data.pickable;
     this.get();
   }
   private get() {
@@ -115,5 +120,9 @@ export class DictionaryComponent implements OnInit {
       })
       return value.id != newRow.id;
     });
+  }
+  accept(element) {
+
+    this.dialogRef.close({ data: element});
   }
 }

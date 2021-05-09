@@ -1,10 +1,39 @@
-<button mat-button (click)="openDialog('Добавить',{})" mat-flat-button color="primary"
+  <div fxLayout="row" 
+  fxLayoutAlign="start"
+  >
+<button style="width: 35%; margin-right: 1rem;" mat-button (click)="openDialog('Добавить',{})" mat-flat-button color="primary"
 *ngIf="isInspector">
   Зарегистрировать транспортное средство</button>
+  <button style="width: 15%;margin-right: 1rem;" mat-button (click)="checkMaint()" mat-flat-button color="primary"
+*ngIf="isInspector">
+  Проверка ТО</button>
+  <input style="width: 25%;"  readonly   matInput [(ngModel)]="maintCountStr">
+
+</div> 
   <mat-table fxLayout="column wrap" [dataSource]="dataSource" #mytable class="mat-elevation-z8" >
     <ng-container matColumnDef="registrationNumber">
       <mat-header-cell *matHeaderCellDef> Номер гос. регистрации </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.registrationNumber}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="maintenanceDate">
+      <mat-header-cell *matHeaderCellDef> Дата тех. обслуживания </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field appearance="standard" class="md-datepicker-button" style="text-align: center" >
+          <input matInput readonly [matDatepicker]="picker1" [(ngModel)]="element.maintenanceDate"
+           >
+          <mat-datepicker-toggle class="md-datepicker-button"  matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker class="md-datepicker-button" #picker1 ></mat-datepicker>
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="maintenanceSuccess">
+      <mat-header-cell *matHeaderCellDef> Неактуальность ТО </mat-header-cell>
+
+      <mat-cell *matCellDef="let element">
+        <mat-checkbox class="example-margin" [(ngModel)]="element.maintenanceSuccess"
+                      (click)="$event.preventDefault()"></mat-checkbox>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="color">
       <mat-header-cell *matHeaderCellDef> Цвет </mat-header-cell>
@@ -18,26 +47,8 @@
       <mat-header-cell *matHeaderCellDef> Категория </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.category.name}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="maintenanceDate">
-      <mat-header-cell *matHeaderCellDef> Дата тех. обслуживания </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <mat-form-field appearance="standard" class="md-datepicker-button" style="text-align: center" >
-          <input matInput readonly [matDatepicker]="picker1" [(ngModel)]="element.maintenanceDate"
-           >
-          <mat-datepicker-toggle class="md-datepicker-button"  matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker class="md-datepicker-button" #picker1 ></mat-datepicker>
-        </mat-form-field>
-      </mat-cell>
-    </ng-container>
 
-    <ng-container matColumnDef="maintenanceSuccess">
-      <mat-header-cell *matHeaderCellDef> Актуальность ТО </mat-header-cell>
 
-      <mat-cell *matCellDef="let element">
-        <mat-checkbox class="example-margin" [(ngModel)]="element.maintenanceSuccess"
-                      (click)="$event.preventDefault()"></mat-checkbox>
-      </mat-cell>
-    </ng-container>
 
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>

@@ -1,0 +1,61 @@
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+
+
+<div mat-dialog-content>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Адрес" matInput [(ngModel)]="local_data.address">
+    </mat-form-field>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Дата происшествия" matInput [matDatepicker]="picker1" [(ngModel)]="local_data.date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-checkbox *ngIf="action != 'Удалить'; else elseTemplate" [(ngModel)]="local_data.isTakeLicense">Изъять права
+    </mat-checkbox>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Дата возврата" [disabled]="!local_data.isTakeLicense" matInput [matDatepicker]="picker1"
+            [(ngModel)]="local_data.returnDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+
+        <mat-label>Выбрать ТС</mat-label>
+        <mat-select [compareWith]="compareFn" [(ngModel)]="local_data.carDriver.vehicle" (selectionChange)="onDropdownChange($event)">
+            <mat-option *ngFor="let selectedVehicle of allVehicles" [(value)]="selectedVehicle">
+                {{selectedVehicle.registrationNumber}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox *ngIf="action != 'Удалить'; else elseTemplate" [(ngModel)]="local_data.carDriver.isCarOwner"
+        (change)="getCarOwner($event.checked)">Нарушитель является автовладельцем</mat-checkbox>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="ФИО нарушителя" matInput [(ngModel)]="local_data.carDriver.fio"
+            [disabled]="local_data.carDriver.isCarOwner">
+
+    </mat-form-field>
+
+    <p><span>Нарушения:</span></p>
+    <mat-selection-list [(ngModel)]="selectedVO" [multiple]="false" *ngIf="action != 'Удалить'; else elseTemplate">
+        <mat-list-option *ngFor="let offense of local_data.carDriver.vehicleOffenses" [value]="offense">
+            {{offense.articleOffense.number}}: {{offense.penalty}}
+        </mat-list-option>
+    </mat-selection-list>
+    <div mat-dialog-content fxLayout="row" fxLayoutAlign="space-evenly none"
+        *ngIf="action != 'Удалить'; else elseTemplate">
+        <button mat-button mat-raised-button color="primary" (click)="add()"
+            style="margin-top: 1rem;margin-bottom: 1rem;">Добавить</button>
+        <button mat-button mat-raised-button color="primary" (click)="deleteVO()"
+            style="margin-top: 1rem;margin-bottom: 1rem;">Удалить</button>
+
+    </div>
+    <div *ngIf="action == 'Удалить'">Вы точно хотите удалить?</div>
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Отмена</button>
+</div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'oidc-client';
 import { Observable, Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -12,6 +11,7 @@ export class NavMenuComponent implements OnInit {
 
   isExpanded = false;
   loginTitle = "Вход";
+  isInspector = false;
 constructor (private userService:UserService){
 
 }
@@ -24,9 +24,15 @@ user:Observable<any>
       (data: any) => {
         if (data.roleName != "guest"){
           this.loginTitle = data.userName;
+          if (data.roleName != "inspector"){
+            this.isInspector = false;
+          } else {
+            this.isInspector = true;
+          };
         } else {
           this.loginTitle = "Вход";
         };
+        
       },
       error => {
         console.log(error)

@@ -6,9 +6,31 @@
         <input placeholder="ФИО" matInput [(ngModel)]="local_data.fio">
     </mat-form-field>
     <mat-form-field *ngIf="action != 'Удалить'; else elseTemplate">
-        <input placeholder="Паспортные данные" matInput [(ngModel)]="local_data.passportData">
+        <input placeholder="Паспортные данные" matInput type="number" [(ngModel)]="local_data.passportData">
     </mat-form-field>
+    <mat-selection-list #vehiclesView  [multiple]="false" *ngIf="action != 'Удалить'; else elseTemplate">
+        <mat-list-option *ngFor="let vehicle of local_data.vehicles" [value]="vehicle">
+            {{vehicle.registrationNumber}}
+        </mat-list-option>
+    </mat-selection-list>
 
+    <div mat-dialog-content fxLayout="row" fxLayoutAlign="space-evenly none"
+        *ngIf="action != 'Удалить'; else elseTemplate">
+        <mat-form-field style="width: 50%" *ngIf="action != 'Удалить'; else elseTemplate">
+
+            <mat-label>Добавить ТС</mat-label>
+            <mat-select (selectionChange)="onDropdownChange($event)">
+                <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle">
+                    {{vehicle.registrationNumber}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- <button mat-button mat-raised-button color="primary" (click)="add()"
+          style="margin-top: 1rem;margin-bottom: 1rem;">Добавить</button> -->
+        <button mat-button mat-raised-button color="primary" (click)="delete(vehiclesView)"
+            style="margin-top: 1rem;margin-bottom: 1rem;">Удалить</button>
+
+    </div>
     <div *ngIf="action == 'Удалить'">Вы точно хотите удалить?</div>
 </div>
 

@@ -1,0 +1,40 @@
+<div  fxLayout="row" fxLayoutAlign="start">
+
+    <button style="width: 50%;margin-right: 1rem;" mat-button (click)="makeReport()" mat-flat-button color="primary"
+        >
+        Сформировать отчёт</button>
+        <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+            <input placeholder="Дата происшествия" matInput [matDatepicker]="picker1" [(ngModel)]="reportModel.startDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+            <input placeholder="Дата происшествия" matInput [matDatepicker]="picker1" [(ngModel)]="reportModel.endDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+</div>
+<mat-table [(dataSource)]="dataSource" #mytable class="my-table mat-elevation-z8">
+    <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef> Номер статьи </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sumOfPenalty">
+        <mat-header-cell *matHeaderCellDef> Сумма штрафов </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.sumOfPenalty}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-link">
+            <div style="text-align: center">
+                <button mat-button (click)="openDialog('Обновить',element)">Изменить</button>
+                <button mat-button (click)="openDialog('Удалить',element)">Удалить</button>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

@@ -1,0 +1,28 @@
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+
+
+<div mat-dialog-content>
+    <mat-form-field *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Номер" matInput [(ngModel)]="local_data.number">
+    </mat-form-field>
+    <mat-form-field style="width: 100%;" *ngIf="action != 'Удалить'; else elseTemplate">
+        <mat-label>Описание</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  [(ngModel)]="local_data.description"></textarea>
+    </mat-form-field>
+    <mat-form-field *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Наказание" matInput [(ngModel)]="local_data.penalty">
+    </mat-form-field>
+    <div *ngIf="action == 'Удалить'">Вы точно хотите удалить?</div>
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Отмена</button>
+</div>

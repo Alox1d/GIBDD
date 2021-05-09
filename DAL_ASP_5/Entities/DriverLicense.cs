@@ -44,7 +44,7 @@ namespace DAL.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         //public ICollection<LicenseCategory> LicenseCategories { get; set; }
-        public List<DriverLicense> DriverLicenses { get; set; }
+        public virtual List<DriverLicense> DriverLicenses { get; set; }
         public List<Vehicle> Vehicles { get; set; }
 
     }

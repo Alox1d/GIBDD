@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL_ASP_5", "DAL_ASP_5\DAL_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL_Angular", "PL_Angular\PL_Angular.csproj", "{FC137B0C-0162-46E1-9790-F66B46EDFC12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL_ASP", "BLL_ASP\BLL_ASP.csproj", "{EFF5AAB0-3FB7-4283-9017-AE20448898A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC137B0C-0162-46E1-9790-F66B46EDFC12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF5AAB0-3FB7-4283-9017-AE20448898A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF5AAB0-3FB7-4283-9017-AE20448898A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF5AAB0-3FB7-4283-9017-AE20448898A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF5AAB0-3FB7-4283-9017-AE20448898A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

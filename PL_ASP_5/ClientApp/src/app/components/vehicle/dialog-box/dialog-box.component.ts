@@ -56,39 +56,34 @@ export class DialogBoxComponent {
     console.log(e)//you will get the id  
     // this.local_data.color.id = e //if you want to bind it to your model
   }
-  compareFn(c1: any, c2: any): boolean {
+ compareFn(c1: any, c2: any): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   openColors() {
     const dialogRef = this.dialog.open(DictionaryComponent, {
       width: '300px',
-      data:'Colors',
+      data:{api:'Colors', pickable:false},
+
     });
     this.getColors();
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result.event == 'Добавить') {
-    //     this.addRowData(result.data);
-    //   } else if (result.event == 'Обновить') {
-    //     this.updateRowData(result.data);
-    //   } else if (result.event == 'Удалить') {
-    //     this.deleteRowData(result.data);
-    //   }
-    // });
   }
   openModels(){
     const dialogRef = this.dialog.open(DictionaryComponent, {
       width: '300px',
-      data:'Models',
+      data:{api:'Models', pickable:false},
+
     });
     this.getModels();
   }
   openCategories(){
     const dialogRef = this.dialog.open(DictionaryComponent, {
       width: '300px',
-      data:'Categories',
+      data:{api:'Categories', pickable:false},
     });
     this.getCategories();
   }
 }
+// export default  function compareFn(c1: any, c2: any): boolean {
+  //     return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  //   }

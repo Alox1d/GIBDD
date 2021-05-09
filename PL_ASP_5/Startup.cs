@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using BLL.Services;
+using DAL;
 using DAL.Entities;
 using JavaScriptEngineSwitcher.ChakraCore;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
@@ -37,12 +38,16 @@ namespace PL_ASP_5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMemoryCache();
+            services.AddScoped<OffenseService>();
+            services.AddScoped<MaintenanceService>();
+            services.AddScoped<DriverLicenseService>();
+            services.AddScoped<ReportsService>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
             services.AddControllersWithViews();
 
-            // In production, the React files will be served from this directory
+            // In production, the files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -62,7 +67,7 @@ namespace PL_ASP_5
             {
                 options.AddPolicy("EnableCORS", builder =>
                 {
-                    builder.WithOrigins("https://localhost:44314")
+                    builder.WithOrigins("https://localhost:5001")
                        .AllowAnyHeader()
                        .AllowAnyMethod()
                        .AllowCredentials();

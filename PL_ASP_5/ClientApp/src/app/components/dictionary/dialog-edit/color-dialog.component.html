@@ -13,10 +13,17 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> Действие </mat-header-cell>
       <mat-cell *matCellDef="let element" class="action-link">
+        <div >
         <div style="text-align: center">
         <button mat-button (click)="openDialog('Обновить',element)" >Изменить</button>
         <button  mat-button (click)="openDialog('Удалить',element)" >Удалить</button>
       </div>
+      <div style="text-align: center">
+        <button mat-button mat-raised-button color="primary" 
+        *ngIf="pickable"
+        (click)="accept(element)" >Выбрать</button>
+      </div>
+    </div>
       </mat-cell>
     </ng-container>
 

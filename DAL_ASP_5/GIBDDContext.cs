@@ -21,6 +21,7 @@ namespace DAL
         public DbSet<Model> Models { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<VehicleOffense> VehicleOffenses { get; set; }
+        public DbSet<TakeStroke> TakeStrokes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +29,14 @@ namespace DAL
 
             modelBuilder.Entity<CarOwner>()
                 .HasOne(c => c.DriverLicense)
-                .WithOne(c => c.CarOwner);
+                .WithOne(c => c.CarOwner)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<CarOwner>()
+        .HasMany(e => e.Vehicles)
+        .WithOne(c => c.CarOwner)
+        .OnDelete(DeleteBehavior.SetNull);
+
 
             //        modelBuilder.Entity<CarDriver>()
             //.HasOptional(c => c.Vehicle)
@@ -37,7 +45,7 @@ namespace DAL
 
 
         }
-        public void UpdateProperties( object target, object source)
+        public void UpdateProperties(object target, object source)
         {
             foreach (var propertyEntry in this.Entry(target).Properties)
             {

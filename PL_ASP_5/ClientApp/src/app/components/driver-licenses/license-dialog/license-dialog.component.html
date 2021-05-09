@@ -1,0 +1,60 @@
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+
+
+<div mat-dialog-content>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Серия и номер" matInput type="number" [(ngModel)]="local_data.number">
+    </mat-form-field>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+
+        <mat-label>Владелец</mat-label>
+        <mat-select [compareWith]="compareFn" [(ngModel)]="local_data.carOwner"
+            (ngModelChange)="onDropdownChange($event)">
+            <mat-option *ngFor="let carOwner of allOwners" [(value)]="carOwner">
+                {{carOwner.fio}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field style="width: 100%" *ngIf="action != 'Удалить'; else elseTemplate">
+        <input placeholder="Дата выдачи" matInput [matDatepicker]="picker1" [(ngModel)]="local_data.releaseDate">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-checkbox *ngIf="action != 'Удалить'; else elseTemplate" [(ngModel)]="local_data.isInvalid">Изъято
+    </mat-checkbox>
+
+    <p>Строки изъятия:</p>
+    <mat-selection-list [(ngModel)]="selectedTakeStrokes" [multiple]="false"
+        *ngIf="action != 'Удалить'; else elseTemplate">
+        <mat-list-option *ngFor="let takeStroke of local_data.takeStrokes" [value]="takeStroke">
+            Дата изъятия: {{takeStroke.takeDate|date}} <br>
+            Дата возврата: {{takeStroke.returnDate|date}}
+        </mat-list-option>
+    </mat-selection-list>
+    <button mat-button mat-raised-button color="primary" (click)="deleteStrokes()"
+        style="margin-top: 1rem;margin-bottom: 1rem;width: 100%;">Удалить</button>
+
+    <p><span>Категории:</span></p>
+    <mat-selection-list [(ngModel)]="selectedCategories" [multiple]="false"
+        *ngIf="action != 'Удалить'; else elseTemplate">
+        <mat-list-option *ngFor="let category of local_data.categories" [value]="category">
+            Категория {{category.name}}
+        </mat-list-option>
+    </mat-selection-list>
+    <div mat-dialog-content fxLayout="row" fxLayoutAlign="space-evenly none"
+        *ngIf="action != 'Удалить'; else elseTemplate">
+        <button mat-button mat-raised-button color="primary" (click)="addCategory()"
+            style="margin-top: 1rem;margin-bottom: 1rem;width: 100%;">Добавить</button>
+        <button mat-button mat-raised-button color="primary" (click)="deleteCategory()"
+            style="margin-top: 1rem;margin-bottom: 1rem;margin-left: 1rem;width: 100%;">Удалить</button>
+
+    </div>
+    <div *ngIf="action == 'Удалить'">Вы точно хотите удалить?</div>
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-button (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Отмена</button>
+</div>
