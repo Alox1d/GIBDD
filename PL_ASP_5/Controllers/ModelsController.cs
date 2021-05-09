@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace PL_ASP_5.Controllers
 {
@@ -16,10 +17,13 @@ namespace PL_ASP_5.Controllers
     public class ModelsController : ControllerBase
     {
         private readonly GIBDDContext _context;
+        private readonly ILogger<ModelsController> _logger;
 
-        public ModelsController(GIBDDContext context)
+        public ModelsController(GIBDDContext context, ILogger<ModelsController> logger)
         {
             _context = context;
+            _logger = logger;
+
         }
 
         // GET: api/Models
@@ -62,7 +66,7 @@ namespace PL_ASP_5.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!ModelExists(id))
                 {
@@ -70,6 +74,8 @@ namespace PL_ASP_5.Controllers
                 }
                 else
                 {
+                    _logger.LogError(e.ToString());
+
                     throw;
                 }
             }

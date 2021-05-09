@@ -9,6 +9,7 @@ using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using BLL.Services;
+using Microsoft.Extensions.Logging;
 
 namespace PL_ASP_5.Controllers
 {
@@ -18,10 +19,14 @@ namespace PL_ASP_5.Controllers
     {
         private readonly GIBDDContext _context;
         private DriverLicenseService _driverLicenseService;
+        private readonly ILogger<DriverLicensesController> _logger;
 
-        public DriverLicensesController(GIBDDContext context, DriverLicenseService driverLicenseService)
+        public DriverLicensesController(GIBDDContext context, 
+            DriverLicenseService driverLicenseService, ILogger<DriverLicensesController> logger)
         {
             _context = context;
+            _logger = logger;
+
             _driverLicenseService = driverLicenseService;
         }
         [HttpGet]
@@ -119,7 +124,7 @@ namespace PL_ASP_5.Controllers
             {
                 _context.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!DriverLicenseExists(id))
                 {
@@ -127,6 +132,8 @@ namespace PL_ASP_5.Controllers
                 }
                 else
                 {
+                    _logger.LogError(e.ToString());
+
                     throw;
                 }
             }

@@ -3,6 +3,7 @@ using DAL_ASP_5.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,16 @@ namespace PL_ASP_5.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager; 
+        private readonly SignInManager<User> _signInManager;
+        private readonly ILogger<AccountController> _logger;
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            ILogger<AccountController> logger
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -62,12 +67,14 @@ namespace PL_ASP_5.Controllers
             }
             else
             {
+                string message = "Неверные входные данные.";
                 var errorMsg = new
                 {
-                    message = "Неверные входные данные.",
+                    message = message,
                     error = ModelState.Values.SelectMany(e =>
                     e.Errors.Select(er => er.ErrorMessage))
                 };
+                _logger.LogError(message);
                 return Ok(errorMsg);
             }
         }
@@ -104,12 +111,15 @@ e.Errors.Select(er => er.ErrorMessage))
             }
             else
             {
+                var message = "Вход не выполнен.";
                 var errorMsg = new
                 {
                     message = "Вход не выполнен.",
                     error = ModelState.Values.SelectMany(e =>
 e.Errors.Select(er => er.ErrorMessage))
                 };
+                _logger.LogError(message);
+
                 return Ok(errorMsg);
             }
         }

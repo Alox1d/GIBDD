@@ -10,6 +10,7 @@ using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using BLL.Services;
+using Microsoft.Extensions.Logging;
 
 namespace PL_ASP_5.Controllers
 {
@@ -19,11 +20,14 @@ namespace PL_ASP_5.Controllers
     {
         private readonly GIBDDContext _context;
         private MaintenanceService _maintenanceService;
+        private readonly ILogger<VehiclesController> _logger;
 
-        public VehiclesController(GIBDDContext context, MaintenanceService maintenanceService)
+        public VehiclesController(GIBDDContext context, 
+            MaintenanceService maintenanceService, ILogger<VehiclesController> logger)
         {
             _context = context;
             _maintenanceService = maintenanceService;
+            _logger = logger;
         }
         [HttpGet]
         [Route("MaintenanceCheck")]
@@ -91,7 +95,7 @@ namespace PL_ASP_5.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!VehicleExists(id))
                 {
@@ -99,6 +103,8 @@ namespace PL_ASP_5.Controllers
                 }
                 else
                 {
+                    _logger.LogError(e.ToString());
+
                     throw;
                 }
             }

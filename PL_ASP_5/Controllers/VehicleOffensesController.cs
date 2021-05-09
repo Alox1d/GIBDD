@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace PL_ASP_5.Controllers
 {
@@ -16,9 +17,12 @@ namespace PL_ASP_5.Controllers
     public class VehicleOffensesController : ControllerBase
     {
         private readonly GIBDDContext _context;
+        private readonly ILogger<VehicleOffensesController> _logger;
 
-        public VehicleOffensesController(GIBDDContext context)
+        public VehicleOffensesController(GIBDDContext context, ILogger<VehicleOffensesController> logger)
         {
+            _logger = logger;
+
             _context = context;
         }
 
@@ -62,7 +66,7 @@ namespace PL_ASP_5.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception e)
             {
                 if (!VehicleOffenseExists(id))
                 {
@@ -70,6 +74,8 @@ namespace PL_ASP_5.Controllers
                 }
                 else
                 {
+                    _logger.LogError(e.ToString());
+
                     throw;
                 }
             }
