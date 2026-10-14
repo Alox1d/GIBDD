@@ -3,3 +3,6 @@
 ################################################################################
 
 /PL_Angular
+
+# Visual Studio generates local IIS configuration and session keys.
+.vs/
